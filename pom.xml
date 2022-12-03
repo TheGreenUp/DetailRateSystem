@@ -6,7 +6,13 @@
 
     <groupId>org.example</groupId>
     <artifactId>CourseProject_Client</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>server</module>
+        <module>common</module>
+        <module>client</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>18</maven.compiler.source>
@@ -14,6 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

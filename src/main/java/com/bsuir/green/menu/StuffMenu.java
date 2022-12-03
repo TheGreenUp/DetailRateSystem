@@ -1,7 +1,7 @@
 package com.bsuir.green.menu;
 
-import com.bsuir.green.models.Request;
-import com.bsuir.green.models.Stuff;
+import com.bsuir.green.common.model.Request;
+import com.bsuir.green.common.model.Stuff;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -74,7 +74,7 @@ public class StuffMenu {
                         String email = scanner.nextLine();
                         System.out.println((String)fromServer.readObject());//введите пароль
                         String password = scanner.nextLine();
-                        toServer.writeObject(new Stuff(0,lname,fname,email,password));
+                        //toServer.writeObject(new Stuff(0,lname,fname,email,password));
                     }
                     case 2 -> {//delete employee
 

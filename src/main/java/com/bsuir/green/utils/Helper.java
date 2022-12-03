@@ -1,6 +1,6 @@
 package com.bsuir.green.utils;
 
-import com.bsuir.green.models.Client;
+import com.bsuir.green.common.model.Client;
 
 public class Helper {
     public Client createClient(String fname, String lname, String email, String password){

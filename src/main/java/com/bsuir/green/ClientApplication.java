@@ -1,20 +1,19 @@
 package com.bsuir.green;
 
-import com.bsuir.green.models.Client;
+import com.bsuir.green.utils.ViewUtils;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class ClientApplication extends Application {
+
     @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage stage) throws IOException {
+        // ViewUtils.loadView(stage, "add-user-view.fxml", "Добро пожаловать");
+        ViewUtils.loadView(stage, "hello-view.fxml", "Добро пожаловать");
     }
+
     public static void main(String[] args) {
         launch();
     }

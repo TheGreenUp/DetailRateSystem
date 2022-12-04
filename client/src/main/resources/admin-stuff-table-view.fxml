@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="622.0" prefWidth="893.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Admin.AdminStuffTableController">
+   <children>
+      <TableView fx:id="stuffTable" layoutX="283.0" layoutY="81.0" onMouseClicked="#getSelected" prefHeight="398.0" prefWidth="592.0">
+        <columns>
+          <TableColumn fx:id="columnId" prefWidth="82.39996337890625" text="id" />
+          <TableColumn fx:id="columnLname" prefWidth="87.19999694824219" text="Фамилия" />
+            <TableColumn fx:id="columnFname" prefWidth="125.5999755859375" text="Имя" />
+            <TableColumn fx:id="columnEmail" prefWidth="109.60003662109375" text="E-mail" />
+            <TableColumn fx:id="columnPassword" minWidth="2.39996337890625" prefWidth="97.60003662109375" text="Пароль" />
+            <TableColumn fx:id="columnRole" prefWidth="84.7999267578125" text="Должность" />
+        </columns>
+      </TableView>
+      <Button fx:id="deleteStuffButton" alignment="CENTER" layoutX="513.0" layoutY="493.0" mnemonicParsing="false" onAction="#onDeleteStuffButton" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: red;" text="Удалить " textAlignment="CENTER" />
+      <Button fx:id="addStuffButton" layoutX="110.0" layoutY="273.0" mnemonicParsing="false" onAction="#onAddStuffButton" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: lightGreen;" text="Добавить" />
+      <Button fx:id="exitButton" layoutX="447.0" layoutY="545.0" mnemonicParsing="false" onAction="#onExitButton" text="Назад" />
+      <TextField fx:id="password" layoutX="113.0" layoutY="185.0" promptText="Пароль" />
+      <TextField fx:id="fname" layoutX="113.0" layoutY="81.0" promptText="Имя" />
+      <TextField fx:id="lname" layoutX="113.0" layoutY="115.0" promptText="Фамилия" />
+      <TextField fx:id="email" layoutX="113.0" layoutY="149.0" promptText="Email" />
+      <ComboBox fx:id="cbGetRoles" layoutX="113.0" layoutY="227.0" prefWidth="150.0" promptText="Должность" />
+      <Label layoutX="47.0" layoutY="85.0" text="Имя" />
+      <Label layoutX="33.0" layoutY="119.0" text="Фамилия" />
+      <Label layoutX="44.0" layoutY="152.0" prefHeight="18.0" prefWidth="30.0" text="Email" />
+      <Label layoutX="38.0" layoutY="188.0" prefHeight="18.0" prefWidth="42.0" text="Пароль" />
+      <Label layoutX="26.0" layoutY="228.0" prefHeight="18.0" prefWidth="63.0" text="Должность" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Stuff.StuffViewController">
+    <children>
+        <TableView fx:id="infoTable" layoutX="5.0" layoutY="106.0" prefHeight="200.0" prefWidth="629.0">
+            <columns>
+                <TableColumn fx:id="columnRequestId" prefWidth="29.60000467300415" text="id заказа" />
+                <TableColumn fx:id="columnClientFName" prefWidth="102.4000015258789" text="Имя клиента" />
+                <TableColumn fx:id="columnClientLName" prefWidth="129.59991455078125" text="Фамилия клиента" />
+                <TableColumn fx:id="columnDetailName" prefWidth="148.7999267578125" text="Название детали" />
+                <TableColumn fx:id="columnDetailType" prefWidth="117.60003662109375" text="Тип детали" />
+                <TableColumn fx:id="columnRequestStatus" prefWidth="96.800048828125" text="Статус заказа" />
+            </columns>
+        </TableView>
+        <Button fx:id="exitFromAccButton" layoutX="503.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitButton" text="Выйти из аккаунта" />
+        <Button fx:id="checkRequestButton" layoutX="264.0" layoutY="333.0" mnemonicParsing="false" onAction="#onCheckRequestButton" text="Провести оценку" />
+    </children>
+</AnchorPane>

@@ -41,6 +41,9 @@ public class Detail implements Serializable {
         this.detailName = detailName;
         this.id = id;
     }
-    public Detail() {
+    public Detail(Detail detail) {
+        this.detailName = detail.getDetailName();
+        this.detailType = detail.getDetailType();
+        this.id = detail.getId();
     }
 }

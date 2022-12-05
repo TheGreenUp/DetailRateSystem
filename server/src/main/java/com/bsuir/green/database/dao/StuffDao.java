@@ -12,13 +12,13 @@ public final class StuffDao {
     private static final StuffDao stuffDao = new StuffDao();
 
     //region SQL команды
-    public static final String DELETE_STUFF = "DELETE FROM stuff WHERE id = ? AND email = ?";
-    public static final String GET_BY_EMAIL_AND_PASSWORD_SQL = "SELECT * FROM stuff WHERE email = ? AND password = ?";
+    public static final String DELETE_STUFF = "DELETE FROM stuff WHERE id = ? AND stuffEmail = ?";
+    public static final String GET_BY_EMAIL_AND_PASSWORD_SQL = "SELECT * FROM stuff WHERE stuffEmail = ? AND stuffPassword = ?";
     public static final String GET_BY_ID = "SELECT * FROM stuff WHERE id = ?";
-    public static final String ADD_USER_SQL = "INSERT INTO stuff(fname, lname, email, password, role) VALUES(?,?,?,?,?)";
+    public static final String ADD_USER_SQL = "INSERT INTO stuff(stuffName, stuffSurname, stuffEmail, stuffPassword, stuffRole) VALUES(?,?,?,?,?)";
     public static final String GET_ALL = "SELECT * FROM stuff";
     public static final String UPDATE_BY_ID =
-            "UPDATE stuff SET fname = ?, lname = ?, email = ?, password = ? where id = ?";
+            "UPDATE stuff SET stuffName = ?, stuffSurname = ?, stuffEmail = ?, stuffPassword = ? where id = ?";
     //endregion
 
     private final ConnectionManager connectionManager;
@@ -59,11 +59,11 @@ public final class StuffDao {
 
             if (resultSet.next()) {
                 return new Stuff(resultSet.getInt("id"),
-                        resultSet.getInt("role"),
-                        resultSet.getString("lname"),
-                        resultSet.getString("fname"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password"));
+                        resultSet.getInt("stuffRole"),
+                        resultSet.getString("stuffSurname"),
+                        resultSet.getString("stuffName"),
+                        resultSet.getString("stuffEmail"),
+                        resultSet.getString("stuffPassword"));
             } else {
                 throw new UserNotFoundException("Failed to find user by id " + id);
             }
@@ -80,11 +80,11 @@ public final class StuffDao {
 
             if (resultSet.next()) {
                 return new Stuff(resultSet.getInt("id"),
-                        resultSet.getInt("role"),
-                        resultSet.getString("lname"),
-                        resultSet.getString("fname"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password"));
+                        resultSet.getInt("stuffRole"),
+                        resultSet.getString("stuffSurname"),
+                        resultSet.getString("stuffName"),
+                        resultSet.getString("stuffEmail"),
+                        resultSet.getString("stuffPassword"));
             } else {
                 throw new UserNotFoundException("Failed to find user by email " + email + " and password " + password);
             }
@@ -98,12 +98,12 @@ public final class StuffDao {
             ArrayList<Stuff> stuffList = new ArrayList<>();
 
             while (resultSet.next()) {
-                Stuff stuff = new Stuff(resultSet.getInt("id"),
-                        resultSet.getInt("role"),
-                        resultSet.getString("lname"),
-                        resultSet.getString("fname"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password"));;
+                Stuff stuff =new Stuff(resultSet.getInt("id"),
+                        resultSet.getInt("stuffRole"),
+                        resultSet.getString("stuffSurname"),
+                        resultSet.getString("stuffName"),
+                        resultSet.getString("stuffEmail"),
+                        resultSet.getString("stuffPassword"));
                 stuffList.add(stuff);
             }
             return stuffList;

@@ -20,13 +20,16 @@ public class AdminViewController {
     Stuff currentStuff = null;
     public void show(Stage stage, Stuff stuff) throws IOException {
         currentStuff = stuff;
-        ViewUtils.loadView(stage, "admin-view.fxml", "Администрирование");
+        ViewUtils.loadView(stage, "adminViews/admin-view.fxml", "Администрирование");
+    }
+    public void show(Stage stage) throws IOException {
+        ViewUtils.loadView(stage, "adminViews/admin-view.fxml", "Администрирование");
     }
     public void onExitButton() throws  IOException{
         new UserLogInController().show((Stage) exitFromAccButton.getScene().getWindow());
     }
-    public void onCreateReportButton(){
-
+    public void onCreateReportButton() throws IOException {
+        new AdminReportTableController().show((Stage) createReportButton.getScene().getWindow());
     }
     public void onControlStuffButton() throws IOException{
         new AdminStuffTableController().show((Stage) stuffControlButton.getScene().getWindow(), currentStuff);

@@ -10,7 +10,6 @@ public class ClientApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // ViewUtils.loadView(stage, "add-user-view.fxml", "Добро пожаловать");
         ViewUtils.loadView(stage, "hello-view.fxml", "Добро пожаловать");
 
     }

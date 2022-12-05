@@ -20,16 +20,19 @@ public class ClientViewController {
     static Client currentClient;
     public void show(Stage stage, Client client) throws IOException {
         currentClient = client;
-        ViewUtils.loadView(stage, "client-view.fxml", "Главное меню");
+        ViewUtils.loadView(stage, "clientViews/client-view.fxml", "Главное меню");
+    }
+    public void show(Stage stage) throws IOException {
+        ViewUtils.loadView(stage, "clientViews/client-view.fxml", "Главное меню");
     }
     public void onExitButton() throws IOException{
         new UserLogInController().show((Stage) exitFromAccButton.getScene().getWindow());
     }
-    public void onShowResolutionButton(){
-
+    public void onShowResolutionButton() throws IOException {
+        new ClientDetailViewController().show((Stage) showResolutionButton.getScene().getWindow(), currentClient);
     }
     public void onMakeRequestButton() throws  IOException{
-        new ClientCreateRequestController().show((Stage) exitFromAccButton.getScene().getWindow(), currentClient);
+        new ClientCreateRequestController().show((Stage) makeRequestButton.getScene().getWindow(), currentClient);
     }
 
     public void onDeleteEmployeeButton(){

@@ -3,7 +3,7 @@ package com.bsuir.green.service;
 
 import com.bsuir.green.common.command.AddStuffCommand;
 import com.bsuir.green.common.command.DeleteStuffCommand;
-import com.bsuir.green.common.command.UpdateUserCommand;
+import com.bsuir.green.common.command.UpdateStuffCommand;
 import com.bsuir.green.common.model.Stuff;
 import com.bsuir.green.common.response.*;
 import com.bsuir.green.database.dao.StuffDao;
@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 public class StuffService {
@@ -38,8 +37,8 @@ public class StuffService {
         return new StuffCreationResponse();
     }
 
-    public Response updateStuff(UpdateUserCommand updateUserCommand) throws SQLException {
-        Stuff updatedUser = updateUserCommand.getStuff();
+    public Response updateStuff(UpdateStuffCommand updateStuffCommand) throws SQLException {
+        Stuff updatedUser = updateStuffCommand.getStuff();
         Integer id = updatedUser.getId();
         log.info("Update user with values {}", updatedUser);
         try {
@@ -50,7 +49,7 @@ public class StuffService {
             existing.setPassword(updatedUser.getPassword());
             existing.setRole(updatedUser.getRole());
             stuffDao.updateStuff(existing);
-            return new UpdateUserResponse();
+            return new UpdateStuffResponse();
         } catch (UserNotFoundException e) {
             log.error("User not found by id {}", id);
             return new ErrorResponse("Пользователь с id " + id + " не найден ");

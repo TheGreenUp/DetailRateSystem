@@ -20,7 +20,7 @@
             <TableColumn fx:id="columnRole" prefWidth="84.7999267578125" text="Должность" />
         </columns>
       </TableView>
-      <Button fx:id="deleteStuffButton" alignment="CENTER" layoutX="513.0" layoutY="493.0" mnemonicParsing="false" onAction="#onDeleteStuffButton" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: red;" text="Удалить " textAlignment="CENTER" />
+      <Button fx:id="deleteStuffButton" alignment="CENTER" layoutX="109.0" layoutY="400.0" mnemonicParsing="false" onAction="#onDeleteStuffButton" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: red;" text="Удалить " textAlignment="CENTER" />
       <Button fx:id="addStuffButton" layoutX="110.0" layoutY="273.0" mnemonicParsing="false" onAction="#onAddStuffButton" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: lightGreen;" text="Добавить" />
       <Button fx:id="exitButton" layoutX="447.0" layoutY="545.0" mnemonicParsing="false" onAction="#onExitButton" text="Назад" />
       <TextField fx:id="password" layoutX="113.0" layoutY="185.0" promptText="Пароль" />
@@ -33,5 +33,6 @@
       <Label layoutX="44.0" layoutY="152.0" prefHeight="18.0" prefWidth="30.0" text="Email" />
       <Label layoutX="38.0" layoutY="188.0" prefHeight="18.0" prefWidth="42.0" text="Пароль" />
       <Label layoutX="26.0" layoutY="228.0" prefHeight="18.0" prefWidth="63.0" text="Должность" />
+      <Button fx:id="updateButton" layoutX="109.0" layoutY="335.0" mnemonicParsing="false" onAction="#onUpdateButton" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: yellow;" text="Обновить" textAlignment="CENTER" />
    </children>
 </AnchorPane>

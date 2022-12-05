@@ -22,19 +22,27 @@ public class CommandManager {
         switch (commandDto.getCommand()) {
             case LOGIN -> response = LoginService.getInstance().login((LoginCommand) commandDto);
             case REGISTER-> response = ClientService.getInstance().createUser((RegisterCommand) commandDto);
-            case DELETE_STUFF-> response = StuffService.getInstance().deleteStuff((DeleteStuffCommand) commandDto);
+
             case STUFF_LIST-> response = StuffService.getInstance().getStuff();
             case REQUEST_LIST_FOR_STUFF-> response = RequestService.getInstance().getRequestsForStuff((RequestListForStuffCommand)commandDto);
             case REQUEST_LIST -> response = RequestService.getInstance().getRequests();
             case QUESTION_LIST-> response = RateService.getInstance().getQuestions((GetRateQuestionsCommand) commandDto);
+
             case ADD_STUFF -> response = StuffService.getInstance().createStuff((AddStuffCommand) commandDto);
+            case DELETE_STUFF-> response = StuffService.getInstance().deleteStuff((DeleteStuffCommand) commandDto);
+
             case CREATE_RESOLUTION-> response = ResolutionService.getInstance().addResolution((MakeResolutionCommand) commandDto);
             case CREATE_REQUEST-> response = RequestService.getInstance().createRequest((CreateRequestCommand) commandDto);
             case CREATE_DETAIL-> response = DetailService.getInstance().createDetail((CreateDetailCommand) commandDto);
-            case UPDATE_USER -> response = StuffService.getInstance().updateStuff((UpdateUserCommand) commandDto);
+
             case UPDATE_REQUEST_STATUS-> response = RequestService.getInstance().uptadeRequestStatus((UpdateRequestStatusCommand) commandDto);
+            case UPDATE_STUFF-> response = StuffService.getInstance().updateStuff((UpdateStuffCommand) commandDto);
+
             case GET_CLIENT_ID_BY_REQUEST-> response = RequestService.getInstance().getClientByRequestId((GetClientIdFromRequestCommand) commandDto);
             case GET_DETAIL-> response = DetailService.getInstance().getDetail((GetDetailCommand) commandDto);
+            case GET_RESOLUTION-> response = ResolutionService.getInstance().getResolution((GetResolutionCommand) commandDto);
+            case GET_ALL_CLIENTS_DETAILS -> response = RequestService.getInstance().getAllClientDetails((GetAllClientDetailsCommand) commandDto);
+            case GET_DETAILED_RESOLUTIONS -> response = DetailedResolutionService.getInstance().getResolution((GetDetailedResolutionCommand) commandDto);
             default -> throw new RuntimeException("Команда не поддерживаестя " + commandDto.getCommand());
         }
         return response;

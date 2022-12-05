@@ -61,10 +61,9 @@ public class StuffRateDetailController implements Initializable {
     void onBackButton() throws IOException {
         new StuffViewController().show((Stage) backButton.getScene().getWindow(), currentStuff);
     }
-
-
     @FXML
     void onMakeVerdictButton() throws  IOException{
+
         GetClientIdFromRequestCommand gcifrc = new GetClientIdFromRequestCommand(requestId);
         Client.writeObject(gcifrc);
         Object response = Client.readObject();
@@ -73,7 +72,7 @@ public class StuffRateDetailController implements Initializable {
             if (response instanceof MakeResolutionResponse) {
                 response = changeRequestStatus(requestId);
                 if (response instanceof UpdateRequestStatusResponse) {
-                    //todo всё добра!
+                    new SuccesfulMakeVerdictPopupController().show((Stage) makeVerdictButton.getScene().getWindow());
                 }
             }
             else if (response instanceof ErrorResponse) {
@@ -83,16 +82,15 @@ public class StuffRateDetailController implements Initializable {
 
             }
         }
-
     }
-
     public void show(Stage stage, Stuff stuff, Detail detail, int currentRequestId) throws IOException {
         currentStuff = stuff;
         currentDetail = detail;
         requestId = currentRequestId;
-        ViewUtils.loadView(stage, "stuff-rate-detail-view.fxml", "Оценка детали");
+        ViewUtils.loadView(stage, "stuffViews/stuff-rate-detail-view.fxml", "Оценка детали");
     }
     public Object makeResolution(Object resp){
+
         com.bsuir.green.common.model.Client client = ((GetClientIdFromRequestResponse) resp).getClient();
         MakeResolutionCommand makeResolutionCommand =
                 new MakeResolutionCommand(
@@ -103,10 +101,8 @@ public class StuffRateDetailController implements Initializable {
     public Object changeRequestStatus(int requestId) {
         UpdateRequestStatusCommand updateRequestStatusCommand = new UpdateRequestStatusCommand(requestId);
         Client.writeObject(updateRequestStatusCommand);
-        Object response = Client.readObject();
         return Client.readObject();
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

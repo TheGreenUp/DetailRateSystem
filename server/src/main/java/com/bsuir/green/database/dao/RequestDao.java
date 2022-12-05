@@ -2,6 +2,7 @@ package com.bsuir.green.database.dao;
 
 import com.bsuir.green.common.command.GetClientIdFromRequestCommand;
 import com.bsuir.green.common.model.Client;
+import com.bsuir.green.common.model.Detail;
 import com.bsuir.green.common.model.Request;
 import com.bsuir.green.common.model.RequestForStuff;
 import com.bsuir.green.exception.UserNotFoundException;
@@ -15,14 +16,16 @@ public class RequestDao {
 
     //region SQL Команды
     public static final String GET_BY_ID = "SELECT * FROM request WHERE id = ?";
-    public static final String UPDATE_REQUEST_STATUS = "UPDATE request SET status = 'Проверена' WHERE detail_id = ?";
+    public static final String UPDATE_REQUEST_STATUS = "UPDATE request SET status = 'Проверена' WHERE request.id = ?";
     public static final String GET_ALL = "SELECT * FROM request";
     public static final String GET_ALL_FOR_STUFF = "SELECT * FROM request" +
             " JOIN autosalon.detail ON detail_id = autosalon.detail.id" +
-            " JOIN autosalon.client ON stuff_id = autosalon.client.id WHERE stuff_id = ?;";
+            " JOIN autosalon.client ON stuff_id = autosalon.client.id WHERE stuff_id = ? AND  status = 'В процессе'";
     public static final String CREATE_REQUEST = "INSERT INTO request(detail_id,stuff_id,client_id) VALUES(?,?,?)";
     public static final String GET_CLIENT_BY_REQUEST_ID = "SELECT * FROM autosalon.request" +
             " JOIN autosalon.client ON client_id = client.id WHERE request.id = ?";
+    public static final String GET_ALL_CLIENT_DETAILS = "SELECT * FROM autosalon.request" +
+            " JOIN autosalon.detail ON detail_id = detail.id WHERE client_id = ?";
     //endregion
 
     public static RequestDao getInstance() {
@@ -72,8 +75,8 @@ public class RequestDao {
                         resultSet.getInt("id"),
                         resultSet.getInt("client.id"),
                         resultSet.getInt("detail.id"),
-                        resultSet.getString("fname"),
-                        resultSet.getString("lname"),
+                        resultSet.getString("clientName"),
+                        resultSet.getString("clientSurname"),
                         resultSet.getString("name"),
                         resultSet.getString("type"),
                         resultSet.getString("status"));
@@ -117,11 +120,26 @@ public class RequestDao {
             resultSet.next();
             return new Client(
                     resultSet.getInt("client.id"),
-                    resultSet.getString("lname"),
-                    resultSet.getString("fname"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password"));
+                    resultSet.getString("clientSurname"),
+                    resultSet.getString("clientName"),
+                    resultSet.getString("clientEmail"),
+                    resultSet.getString("clientPassword"));
         }
+    }
+    public ArrayList<Detail> getAllClientDetails(Client client) throws SQLException{
+        ArrayList<Detail> details = new ArrayList<>();
+        try (Connection connection = connectionManager.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_CLIENT_DETAILS);
+            statement.setInt(1, client.getId());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Detail detail = new Detail(resultSet.getString("type"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("detail.id"));
+                details.add(detail);
+            }
+        }
+        return details;
     }
 }
 

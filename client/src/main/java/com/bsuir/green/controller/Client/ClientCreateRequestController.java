@@ -46,7 +46,7 @@ public class ClientCreateRequestController implements Initializable {
 
     public void show(Stage stage, com.bsuir.green.common.model.Client client) throws IOException {
         currentClient = client;
-        ViewUtils.loadView(stage, "client-make-request.fxml", "Создание запроса");
+        ViewUtils.loadView(stage, "clientViews/client-make-request.fxml", "Создание запроса");
     }
 
     @Override
@@ -64,16 +64,16 @@ public class ClientCreateRequestController implements Initializable {
         //endregion
     }
 
-    public void onCreateRequestButton() {
+    public void onCreateRequestButton() throws IOException {
         createDetail();
-        getDetail(new Detail(cbDetailType.getValue(), detailName.getText()));
+        Detail detail = getDetail(new Detail(cbDetailType.getValue(), detailName.getText()));
         Stuff chosenStuff = (Stuff)cbChosenStuff.getValue();
         CreateRequestCommand createRequestCommand = new CreateRequestCommand(
-                new Request(currentClient.getId(), currentDetail.getId(), chosenStuff.getId()));
+                new Request(currentClient.getId(), detail.getId(), chosenStuff.getId()));
         Client.writeObject(createRequestCommand);
         Object response = Client.readObject();
         if (response instanceof CreateRequestResponse) {
-            //todo поп-ап "Все гуд"
+            new SuccessfulPopUpWindowClient().show((Stage) backButton.getScene().getWindow(), currentClient);
         }
 
     }
@@ -88,16 +88,16 @@ public class ClientCreateRequestController implements Initializable {
         Client.writeObject(createDetailCommand);
         Object response = Client.readObject();
         if (response instanceof CreateDetailResponse) {
-            //todo good
         }
     }
 
-    public void getDetail(Detail detail) {
+    public Detail getDetail(Detail detail) {
         GetDetailCommand getDetailCommand = new GetDetailCommand(detail);
         Client.writeObject(getDetailCommand);
         Object response = Client.readObject();
         if (response instanceof GetDetailResponse) {
-            currentDetail = ((GetDetailResponse) response).getDetail();
+            return new Detail(((GetDetailResponse) response).getDetail());
         }
+        return null;
     }
 }

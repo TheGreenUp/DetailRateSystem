@@ -12,6 +12,7 @@ import com.bsuir.green.controller.Stuff.StuffViewController;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,7 @@ public class UserLogInController {
     @FXML
     private TextField emailField;
     @FXML
-    private javafx.scene.control.TextField passwordField;
+    private PasswordField passwordField;
     @FXML
     private Button loginButton;
 
@@ -32,10 +33,10 @@ public class UserLogInController {
     }
 
     public void onLoginButton() throws IOException {
-        //LoginCommand loginCommand = new LoginCommand(emailField.getText(), passwordField.getText());
+        LoginCommand loginCommand = new LoginCommand(emailField.getText(), passwordField.getText());
         //LoginCommand loginCommand = new LoginCommand("daniilgreen@mail.ru", "12345678"); //1 админ
-        //LoginCommand loginCommand = new LoginCommand("jeka@gmail.com", "12345678"); //2 stuff
-        LoginCommand loginCommand = new LoginCommand("vilka@gmail.com", "1234"); //3 юзер
+        //LoginCommand loginCommand = new LoginCommand("dan@gmail.com", "12345678"); //2 stuff
+        //LoginCommand loginCommand = new LoginCommand("pasha@gmail.com", "1234"); //3 юзер
         Client.writeObject(loginCommand);
         Object response = Client.readObject();
         if (response instanceof LoginResponse) {

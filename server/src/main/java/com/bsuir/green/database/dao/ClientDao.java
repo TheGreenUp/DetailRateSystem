@@ -12,12 +12,12 @@ public final class ClientDao {
 
     private static final ClientDao clientDao = new ClientDao();
 
-    public static final String GET_BY_EMAIL_AND_PASSWORD_SQL = "SELECT * FROM client WHERE email = ? AND password = ?";
+    public static final String GET_BY_EMAIL_AND_PASSWORD_SQL = "SELECT * FROM client WHERE clientEmail = ? AND clientPassword = ?";
     public static final String GET_BY_ID = "SELECT * FROM client WHERE id = ?";
-    public static final String ADD_USER_SQL = "INSERT INTO client(fname, lname, email, password) VALUES(?,?,?,?)";
+    public static final String ADD_USER_SQL = "INSERT INTO client(clientName, clientSurname, clientEmail, clientPassword) VALUES(?,?,?,?)";
     public static final String GET_ALL = "SELECT * FROM client";
     public static final String UPDATE_BY_ID =
-            "UPDATE client SET fname = ?, lname = ?, email = ?, password = ? where id = ?";
+            "UPDATE client SET clientName = ?, clientSurname = ?, clientEmail = ?, clientPassword = ? where id = ?";
 
     private final ConnectionManager connectionManager;
 
@@ -49,10 +49,10 @@ public final class ClientDao {
 
             if (resultSet.next()) {
                 return new Client(resultSet.getInt("id"),
-                        resultSet.getString("lname"),
-                        resultSet.getString("fname"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password"));
+                        resultSet.getString("clientSurname"),
+                        resultSet.getString("clientName"),
+                        resultSet.getString("clientEmail"),
+                        resultSet.getString("clientPassword"));
             } else {
                 throw new UserNotFoundException("Failed to find user by id " + id);
             }
@@ -69,10 +69,10 @@ public final class ClientDao {
 
             if (resultSet.next()) {
                 return new Client(resultSet.getInt("id"),
-                        resultSet.getString("lname"),
-                        resultSet.getString("fname"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password"));
+                        resultSet.getString("clientSurname"),
+                        resultSet.getString("clientName"),
+                        resultSet.getString("clientEmail"),
+                        resultSet.getString("clientPassword"));
             } else {
                 throw new UserNotFoundException("Failed to find user by email " + email + " and password " + password);
             }
@@ -87,10 +87,10 @@ public final class ClientDao {
 
             while (resultSet.next()) {
                 Client client = new Client(resultSet.getInt("id"),
-                        resultSet.getString("lname"),
-                        resultSet.getString("fname"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password"));
+                        resultSet.getString("clientSurname"),
+                        resultSet.getString("clientName"),
+                        resultSet.getString("clientEmail"),
+                        resultSet.getString("clientPassword"));
                 clientList.add(client);
             }
             return clientList;

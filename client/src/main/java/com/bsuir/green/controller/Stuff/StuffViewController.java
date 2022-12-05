@@ -56,42 +56,31 @@ public class StuffViewController implements Initializable {
     private Button exitFromAccButton;
     @FXML
     private Button checkRequestButton;
+    @FXML
+    private Button updateTableBtn;
     //endregion
 
     //region Variables
     ObservableList<RequestForStuff> requestList;
     static Stuff currentStuff = null;
     int chosenRequestIndex = -1;
-    static int requestId = -1;
     static RequestForStuff chosenRequest = null;
     static Detail chosenDetail = null;
     //endregion
     public void show(Stage stage, Stuff stuff) throws IOException {
         currentStuff = stuff;
-        ViewUtils.loadView(stage, "stuff-view.fxml", "Работка");
+        ViewUtils.loadView(stage, "stuffViews/stuff-view.fxml", "Работка");
     }
-
+    public void show(Stage stage) throws IOException {
+        ViewUtils.loadView(stage, "stuffViews/stuff-view.fxml", "Работка");
+    }
     public void onExitButton() throws IOException {
         new UserLogInController().show((Stage) exitFromAccButton.getScene().getWindow());
     }
 
     public void onCheckRequestButton()throws IOException {
-        new StuffRateDetailController().show((Stage) checkRequestButton.getScene().getWindow(), currentStuff, chosenDetail, requestId);
+         new StuffRateDetailController().show((Stage) checkRequestButton.getScene().getWindow(), currentStuff, chosenDetail, chosenRequest.getId());
 
-    }
-
-    private void refreshTable() {//todo тут одинаковый код с init, но я хз как поправить, ибо при удалении и добавлении хотелось бы, чтобы сразу таблица обновлялась
-        RequestListForStuffCommand requestListForStuffCommand = new RequestListForStuffCommand(currentStuff);
-        Client.writeObject(requestListForStuffCommand);
-        Object response = Client.readObject();
-        if (response instanceof RequestListForStuffResponse) {
-            requestList = FXCollections.observableList((List<RequestForStuff>) ((RequestListForStuffResponse) response).getRequests());
-            setCellTable(requestList);
-        } else if (response instanceof ErrorResponse) {
-
-        } else {
-            System.out.println("Unknown error");
-        }
     }
 
     @Override
@@ -131,8 +120,6 @@ public class StuffViewController implements Initializable {
                 columnDetailName.getCellData(chosenRequestIndex),
                 columnDetailId.getCellData(chosenRequestIndex));
         //endregion
-
-         requestId = columnRequestId.getCellData(chosenRequestIndex);
     }
     private void setCellTable(ObservableList<RequestForStuff> requestList) {
         columnDetailName.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("detailName"));

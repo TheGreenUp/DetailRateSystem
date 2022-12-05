@@ -4,11 +4,10 @@ import com.bsuir.green.Client;
 import com.bsuir.green.common.command.AddStuffCommand;
 import com.bsuir.green.common.command.DeleteStuffCommand;
 import com.bsuir.green.common.command.StuffListCommand;
+import com.bsuir.green.common.command.UpdateStuffCommand;
 import com.bsuir.green.common.model.Stuff;
-import com.bsuir.green.common.response.DeleteStuffResponse;
-import com.bsuir.green.common.response.ErrorResponse;
-import com.bsuir.green.common.response.StuffCreationResponse;
-import com.bsuir.green.common.response.StuffListResponse;
+import com.bsuir.green.common.response.*;
+import com.bsuir.green.enums.StuffRoles;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -66,13 +65,17 @@ public class AdminStuffTableController implements Initializable {
     Button exitButton;
     @FXML
     Button deleteStuffButton;
+    @FXML
+    Button updateButton;
 
     //endregion
     public void show(Stage stage, Stuff stuff) throws IOException {
-        ViewUtils.loadView(stage, "admin-stuff-table-view.fxml", "Управление сотрудниками");
+        ViewUtils.loadView(stage, "adminViews/admin-stuff-table-view.fxml", "Управление сотрудниками");
         currentStuff = stuff;
     }
     public void onAddStuffButton() throws IOException {
+        //todo выбор роли
+        //int role = getRoleByComboBox(cbGetRoles);
         AddStuffCommand addStuffCommand = new AddStuffCommand(new Stuff(lname.getText(), fname.getText(), email.getText(), password.getText()));
         //todo возможность добавлять администраторов
         Client.writeObject(addStuffCommand);
@@ -85,13 +88,27 @@ public class AdminStuffTableController implements Initializable {
             //просто ошибка
         }
     }
+    public void onUpdateButton() throws  IOException{
+        //todo
+        UpdateStuffCommand updateStuffCommand = new UpdateStuffCommand(new Stuff(lname.getText(), fname.getText(), email.getText(), password.getText()));
+        //todo возможность добавлять администраторов
+        Client.writeObject(updateStuffCommand);
+        Object response = Client.readObject();
+        if (response instanceof UpdateStuffResponse) {
+            refreshTable();
+        } else if (response instanceof ErrorResponse) {
 
+        } else {
+            //просто ошибка
+        }
+    }
     public void onExitButton() throws IOException {
         new AdminViewController().show((Stage) exitButton.getScene().getWindow(), currentStuff);
 
     }
 
     public void onDeleteStuffButton() throws IOException {
+        //todo ДОБАВИТЬ "А ЧО ВНА2РЕ ХОЧЕШЬ УДАЛИТЬ"
         DeleteStuffCommand deleteStuffCommand = new DeleteStuffCommand(
                 new Stuff(chosenStuffId, (Integer) cbGetRoles.getValue(),
                         lname.getText(), fname.getText(),
@@ -148,6 +165,7 @@ public class AdminStuffTableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cbGetRoles.getItems().addAll(StuffRoles.getLables());//закидываем значения в комбобокс с типами деталей
         StuffListCommand stuffListCommand = new StuffListCommand();
         Client.writeObject(stuffListCommand);
         Object response = Client.readObject();
@@ -159,6 +177,18 @@ public class AdminStuffTableController implements Initializable {
         } else {
             System.out.println("Unknown error");
         }
+    }
+
+    public int getRoleByComboBox(ComboBox cbGetRoles){
+        switch ((String) cbGetRoles.getValue()) {
+            case "Администратор" -> {
+                return 1;
+            }
+            case "Специалист" -> {
+                return 0;
+            }
+        }
+        return -1;
     }
 
 }

@@ -1,9 +1,6 @@
 package com.bsuir.green.service;
 
-import com.bsuir.green.common.command.CreateRequestCommand;
-import com.bsuir.green.common.command.GetClientIdFromRequestCommand;
-import com.bsuir.green.common.command.RequestListForStuffCommand;
-import com.bsuir.green.common.command.UpdateRequestStatusCommand;
+import com.bsuir.green.common.command.*;
 import com.bsuir.green.common.model.Client;
 import com.bsuir.green.common.model.Request;
 import com.bsuir.green.common.model.RequestForStuff;
@@ -43,11 +40,16 @@ public class RequestService {
     }
     public Response createRequest(CreateRequestCommand сreateRequestCommand) throws SQLException {
         requestDao.createRequest(сreateRequestCommand.getRequest());
-        return new StuffCreationResponse();
+        return new CreateRequestResponse();
     }
     public Response uptadeRequestStatus(UpdateRequestStatusCommand updateRequestStatusCommand) throws SQLException {
         requestDao.updateRequestStatus(updateRequestStatusCommand.getRequestId());
         return new UpdateRequestStatusResponse();
+    }
+    public Response getAllClientDetails(GetAllClientDetailsCommand getAllClientDetailsCommand) throws SQLException {
+        return new GetAllClientDetailsResponse(
+                requestDao.getAllClientDetails(getAllClientDetailsCommand.getClient()));
+
     }
 
 }

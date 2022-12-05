@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Admin.AdminReportTableController">
+   <children>
+      <TableView fx:id="infoTable" layoutY="100.0" prefHeight="525.0" prefWidth="940.0">
+        <columns>
+          <TableColumn fx:id="columnDetail" prefWidth="216.800048828125" text="Деталь">
+               <columns>
+                  <TableColumn fx:id="columnDetailType" prefWidth="98.39996337890625" text="Тип детали" />
+                <TableColumn fx:id="columnDetailName" prefWidth="119.20001220703125" text="Название детали" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="columnStuff" prefWidth="272.79998779296875" text="Специалист">
+               <columns>
+                  <TableColumn fx:id="columnStuffLname" prefWidth="91.20001220703125" text="Фамилия" />
+                  <TableColumn fx:id="columnStuffFname" prefWidth="90.39996337890625" text="Имя " />
+                  <TableColumn fx:id="columnStuffEmail" prefWidth="92.0" text="E-mail" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="columnClient" prefWidth="75.0" text="Клиент">
+               <columns>
+                  <TableColumn fx:id="columnClientLname" prefWidth="75.0" text="Фамилия" />
+                  <TableColumn fx:id="columnClientFname" prefWidth="75.0" text="Имя" />
+                  <TableColumn fx:id="columnClientEmail" prefWidth="75.0" text="E-mail" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="columnResult" prefWidth="104.800048828125" text="Результат" />
+            <TableColumn fx:id="columnDate" prefWidth="115.20001220703125" text="Дата" />
+        </columns>
+      </TableView>
+      <TextField fx:id="dataInputField" layoutX="320.0" layoutY="38.0" promptText="введите дату" />
+      <Button fx:id="makeGeneralReportBtn" layoutX="838.0" layoutY="14.0" mnemonicParsing="false" onAction="#onMakeGeneralReportBtn" text="За всё время" />
+      <Button fx:id="makeReport" layoutX="499.0" layoutY="38.0" mnemonicParsing="false" onAction="#onMakeReportButton" text="Ввод" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButton" text="Назад" />
+   </children>
+</AnchorPane>

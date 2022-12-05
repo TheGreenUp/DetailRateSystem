@@ -2,6 +2,7 @@ package com.bsuir.green.controller.Stuff;
 
 import com.bsuir.green.Client;
 import com.bsuir.green.common.command.RequestListForStuffCommand;
+import com.bsuir.green.common.model.Detail;
 import com.bsuir.green.common.model.RequestForStuff;
 import com.bsuir.green.common.model.Stuff;
 import com.bsuir.green.common.response.ErrorResponse;
@@ -40,10 +41,14 @@ public class StuffViewController implements Initializable {
     private TableColumn<RequestForStuff, String> columnDetailType;
 
     @FXML
-    private TableColumn<RequestForStuff, String> columnRequestId;
+    private TableColumn<RequestForStuff, Integer> columnRequestId;
 
     @FXML
     private TableColumn<RequestForStuff, String> columnRequestStatus;
+    @FXML
+    private TableColumn<RequestForStuff, Integer> columnClientId;
+    @FXML
+    private TableColumn<RequestForStuff, Integer> columnDetailId;
     //endregion
 
     //region Buttons
@@ -57,7 +62,9 @@ public class StuffViewController implements Initializable {
     ObservableList<RequestForStuff> requestList;
     static Stuff currentStuff = null;
     int chosenRequestIndex = -1;
+    static int requestId = -1;
     static RequestForStuff chosenRequest = null;
+    static Detail chosenDetail = null;
     //endregion
     public void show(Stage stage, Stuff stuff) throws IOException {
         currentStuff = stuff;
@@ -69,7 +76,7 @@ public class StuffViewController implements Initializable {
     }
 
     public void onCheckRequestButton()throws IOException {
-        new StuffRateDetailController().show((Stage) checkRequestButton.getScene().getWindow(), currentStuff);
+        new StuffRateDetailController().show((Stage) checkRequestButton.getScene().getWindow(), currentStuff, chosenDetail, requestId);
 
     }
 
@@ -108,13 +115,24 @@ public class StuffViewController implements Initializable {
         if (chosenRequestIndex <= -1) {//проверка на то, выделил ли что-нибудь пользователь или нет
             return;
         }
+        //region Создание реквеста
         chosenRequest = new RequestForStuff(
-                Integer.parseInt(columnRequestId.getCellData(chosenRequestIndex)),
-                columnClientFName.getCellData(chosenRequest),
-                columnClientLName.getCellData(chosenRequest),
-                columnDetailName.getCellData(chosenRequest),
-                columnDetailType.getCellData(chosenRequest),
-                columnRequestStatus.getCellData(chosenRequest));
+                columnRequestId.getCellData(chosenRequestIndex),
+                columnClientFName.getCellData(chosenRequestIndex),
+                columnClientLName.getCellData(chosenRequestIndex),
+                columnDetailName.getCellData(chosenRequestIndex),
+                columnDetailType.getCellData(chosenRequestIndex),
+                columnRequestStatus.getCellData(chosenRequestIndex));
+        //endregion
+
+        //region Создание детальки
+        chosenDetail = new Detail(
+                columnDetailType.getCellData(chosenRequestIndex),
+                columnDetailName.getCellData(chosenRequestIndex),
+                columnDetailId.getCellData(chosenRequestIndex));
+        //endregion
+
+         requestId = columnRequestId.getCellData(chosenRequestIndex);
     }
     private void setCellTable(ObservableList<RequestForStuff> requestList) {
         columnDetailName.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("detailName"));
@@ -122,7 +140,9 @@ public class StuffViewController implements Initializable {
         columnClientFName.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("clientFname"));
         columnClientLName.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("clientLname"));
         columnRequestStatus.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("requestStatus"));
-        columnRequestId.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("id"));
+        columnRequestId.setCellValueFactory(new PropertyValueFactory<RequestForStuff, Integer>("id"));
+        columnClientId.setCellValueFactory(new PropertyValueFactory<RequestForStuff, Integer>("client_id"));
+        columnDetailId.setCellValueFactory(new PropertyValueFactory<RequestForStuff, Integer>("detail_id"));
         infoTable.setItems(requestList);
 
     }

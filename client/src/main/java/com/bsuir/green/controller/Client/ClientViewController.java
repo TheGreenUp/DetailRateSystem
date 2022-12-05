@@ -1,5 +1,6 @@
 package com.bsuir.green.controller.Client;
 
+import com.bsuir.green.common.model.Client;
 import com.bsuir.green.controller.UserLogInController;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.fxml.FXML;
@@ -16,7 +17,9 @@ public class ClientViewController {
     private Button showResolutionButton;
     @FXML
     private Button exitFromAccButton;
-    public void show(Stage stage) throws IOException {
+    static Client currentClient;
+    public void show(Stage stage, Client client) throws IOException {
+        currentClient = client;
         ViewUtils.loadView(stage, "client-view.fxml", "Главное меню");
     }
     public void onExitButton() throws IOException{
@@ -26,7 +29,7 @@ public class ClientViewController {
 
     }
     public void onMakeRequestButton() throws  IOException{
-        new ClientCreateRequestController().show((Stage) exitFromAccButton.getScene().getWindow());
+        new ClientCreateRequestController().show((Stage) exitFromAccButton.getScene().getWindow(), currentClient);
     }
 
     public void onDeleteEmployeeButton(){

@@ -6,7 +6,6 @@ import com.bsuir.green.exception.UserNotFoundException;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public final class StuffDao {
 
@@ -92,11 +91,11 @@ public final class StuffDao {
         }
     }
 
-    public List<Stuff> getAll() throws SQLException {
+    public ArrayList<Stuff> getAll() throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GET_ALL);
-            List<Stuff> stuffList = new ArrayList<>();
+            ArrayList<Stuff> stuffList = new ArrayList<>();
 
             while (resultSet.next()) {
                 Stuff stuff = new Stuff(resultSet.getInt("id"),

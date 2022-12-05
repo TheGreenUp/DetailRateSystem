@@ -1,5 +1,7 @@
 package com.bsuir.green.database.dao;
 
+import com.bsuir.green.common.command.GetClientIdFromRequestCommand;
+import com.bsuir.green.common.model.Client;
 import com.bsuir.green.common.model.Request;
 import com.bsuir.green.common.model.RequestForStuff;
 import com.bsuir.green.exception.UserNotFoundException;
@@ -19,6 +21,8 @@ public class RequestDao {
             " JOIN autosalon.detail ON detail_id = autosalon.detail.id" +
             " JOIN autosalon.client ON stuff_id = autosalon.client.id WHERE stuff_id = ?;";
     public static final String CREATE_REQUEST = "INSERT INTO request(detail_id,stuff_id,client_id) VALUES(?,?,?)";
+    public static final String GET_CLIENT_BY_REQUEST_ID = "SELECT * FROM autosalon.request" +
+            " JOIN autosalon.client ON client_id = client.id WHERE request.id = ?";
     //endregion
 
     public static RequestDao getInstance() {
@@ -31,10 +35,10 @@ public class RequestDao {
         connectionManager = ConnectionManager.getInstance();
     }
 
-    public void updateRequestStatus(Request request) throws SQLException {
+    public void updateRequestStatus(int requestId) throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(UPDATE_REQUEST_STATUS);
-            statement.setInt(1, request.getDetail_id());
+            statement.setInt(1, requestId);
             statement.executeUpdate();
         }
     }
@@ -66,6 +70,8 @@ public class RequestDao {
             while (resultSet.next()) {
                 RequestForStuff requestForStuff = new RequestForStuff(
                         resultSet.getInt("id"),
+                        resultSet.getInt("client.id"),
+                        resultSet.getInt("detail.id"),
                         resultSet.getString("fname"),
                         resultSet.getString("lname"),
                         resultSet.getString("name"),
@@ -76,11 +82,11 @@ public class RequestDao {
             return requests;
         }
     }
-    public List<Request> getAll() throws SQLException {
+    public ArrayList<Request> getAll() throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GET_ALL);
-            List<Request> requests = new ArrayList<>();
+            ArrayList<Request> requests = new ArrayList<>();
 
             while (resultSet.next()) {
                 Request request = new Request(resultSet.getString("status"),
@@ -101,6 +107,20 @@ public class RequestDao {
             statement.setInt(2, request.getStuff_id());
             statement.setInt(3, request.getClient_id());
             statement.executeUpdate();
+        }
+    }
+    public Client getClientByRequest(GetClientIdFromRequestCommand getClientIdFromRequestCommand) throws SQLException {
+        try (Connection connection = connectionManager.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_REQUEST_ID);
+            statement.setInt(1, getClientIdFromRequestCommand.getRequestId());
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return new Client(
+                    resultSet.getInt("client.id"),
+                    resultSet.getString("lname"),
+                    resultSet.getString("fname"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password"));
         }
     }
 }

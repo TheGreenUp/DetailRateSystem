@@ -1,5 +1,6 @@
 package com.bsuir.green.enums;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -23,5 +24,12 @@ public enum DetailType {
     }
     public static String getLable(DetailType detailType) {
         return detailType.typeOfDetail;
+    }
+    public static ArrayList<String> getLables() {//получаем массив всех лейблов
+        ArrayList<String> dtypesLabels = new ArrayList<String>();
+        for(int i = 0; i < DetailType.values().length; i ++) {
+           dtypesLabels.add(getLable(DetailType.values()[i]));
+        }
+       return  dtypesLabels;
     }
 }

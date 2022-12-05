@@ -34,14 +34,14 @@ public class UserLogInController {
     public void onLoginButton() throws IOException {
         //LoginCommand loginCommand = new LoginCommand(emailField.getText(), passwordField.getText());
         //LoginCommand loginCommand = new LoginCommand("daniilgreen@mail.ru", "12345678"); //1 админ
-        LoginCommand loginCommand = new LoginCommand("jeka@gmail.com", "12345678"); //2 stuff
-        //LoginCommand loginCommand = new LoginCommand("vilka@gmail.com", "1234"); //3 юзер
+        //LoginCommand loginCommand = new LoginCommand("jeka@gmail.com", "12345678"); //2 stuff
+        LoginCommand loginCommand = new LoginCommand("vilka@gmail.com", "1234"); //3 юзер
         Client.writeObject(loginCommand);
         Object response = Client.readObject();
         if (response instanceof LoginResponse) {
             if (((LoginResponse) response).getStuff() == null) {
                 com.bsuir.green.common.model.Client client = ((LoginResponse) response).getClient();
-                new ClientViewController().show((Stage) loginButton.getScene().getWindow());
+                new ClientViewController().show((Stage) loginButton.getScene().getWindow(), client);
 
             } else {
                 Stuff stuff = ((LoginResponse) response).getStuff();

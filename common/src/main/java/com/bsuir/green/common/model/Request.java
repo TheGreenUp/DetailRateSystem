@@ -15,6 +15,12 @@ public class Request implements Serializable {
         this.detail_id = detail_id;
         this.stuff_id = stuff_id;
     }
+    public Request(int client_id, int detail_id, int stuff_id) {
+        this.requestStatus = "В процессе";
+        this.client_id = client_id;
+        this.detail_id = detail_id;
+        this.stuff_id = stuff_id;
+    }
 
     @Override
     public String toString() {

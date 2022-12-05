@@ -58,7 +58,7 @@ public class Stuff implements Serializable {
 
     @Override
     public String toString() {
-        return "Работник " + lname  + " " + fname;
+        return  lname  + " " + fname;
     }
 
     public Stuff() {

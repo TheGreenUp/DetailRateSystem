@@ -5,19 +5,21 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Stuff.StuffViewController">
+<AnchorPane prefHeight="549.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Stuff.StuffViewController">
     <children>
-        <TableView fx:id="infoTable" layoutX="5.0" layoutY="106.0" prefHeight="200.0" prefWidth="629.0">
+        <TableView fx:id="infoTable" layoutX="4.0" layoutY="113.0" onMouseClicked="#getSelected" prefHeight="286.0" prefWidth="826.0">
             <columns>
-                <TableColumn fx:id="columnRequestId" prefWidth="29.60000467300415" text="id заказа" />
-                <TableColumn fx:id="columnClientFName" prefWidth="102.4000015258789" text="Имя клиента" />
-                <TableColumn fx:id="columnClientLName" prefWidth="129.59991455078125" text="Фамилия клиента" />
-                <TableColumn fx:id="columnDetailName" prefWidth="148.7999267578125" text="Название детали" />
-                <TableColumn fx:id="columnDetailType" prefWidth="117.60003662109375" text="Тип детали" />
-                <TableColumn fx:id="columnRequestStatus" prefWidth="96.800048828125" text="Статус заказа" />
+                <TableColumn fx:id="columnRequestId" prefWidth="71.9999680519104" text="id заказа" />
+                <TableColumn fx:id="columnClientFName" prefWidth="113.60001373291016" text="Имя клиента" />
+                <TableColumn fx:id="columnClientLName" prefWidth="133.60003662109375" text="Фамилия клиента" />
+                <TableColumn fx:id="columnDetailName" prefWidth="126.4000244140625" text="Название детали" />
+                <TableColumn fx:id="columnDetailType" prefWidth="129.59994506835938" text="Тип детали" />
+                <TableColumn fx:id="columnRequestStatus" prefWidth="115.199951171875" text="Статус заказа" />
+            <TableColumn fx:id="columnClientId" prefWidth="68.79998779296875" text="id клиента" />
+            <TableColumn fx:id="columnDetailId" prefWidth="65.5999755859375" text="id детали" />
             </columns>
         </TableView>
-        <Button fx:id="exitFromAccButton" layoutX="503.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitButton" text="Выйти из аккаунта" />
-        <Button fx:id="checkRequestButton" layoutX="264.0" layoutY="333.0" mnemonicParsing="false" onAction="#onCheckRequestButton" text="Провести оценку" />
+        <Button fx:id="exitFromAccButton" layoutX="703.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitButton" text="Выйти из аккаунта" />
+        <Button fx:id="checkRequestButton" layoutX="362.0" layoutY="491.0" mnemonicParsing="false" onAction="#onCheckRequestButton" text="Провести оценку" />
     </children>
 </AnchorPane>

@@ -1,19 +1,16 @@
 package com.bsuir.green.utils;
 
-import com.bsuir.green.common.model.*;
+import com.bsuir.green.common.model.Client;
+import com.bsuir.green.common.model.Stuff;
 import com.bsuir.green.enums.DetailType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Helper {
     public String defineUser(ResultSet rs) {
@@ -81,7 +78,7 @@ public class Helper {
         return DetailType.values()[chosenDetailType].typeOfDetail;//возвращаем нужное
     }
 
-    public Resolution createResolution(Request request, Detail detail, int finalRate){
+   /* public Resolution createResolution(Request request, Detail detail, int finalRate){
         String result = "Сертифицирована";
         if (finalRate <= 20) result = "Не подлежит сертификации";
 
@@ -102,7 +99,7 @@ public class Helper {
         System.out.println("Введите пароль для входа работника: ");
         password = scanner.nextLine();
         return new Stuff();
-    }
+    }*/
 
 
 

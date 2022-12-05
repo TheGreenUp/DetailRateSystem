@@ -1,6 +1,8 @@
 package com.bsuir.green.common.model;
 
-public class Detail {
+import java.io.Serializable;
+
+public class Detail implements Serializable {
     String detailType,detailName;
     int id;
 

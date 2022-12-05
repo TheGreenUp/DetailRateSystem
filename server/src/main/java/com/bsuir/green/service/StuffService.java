@@ -11,6 +11,7 @@ import com.bsuir.green.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -28,7 +29,7 @@ public class StuffService {
     }
 
     public StuffListResponse getStuff() throws SQLException {
-        List<Stuff> all = stuffDao.getAll();
+        ArrayList<Stuff> all = stuffDao.getAll();
         return new StuffListResponse(all);
     }
 

@@ -1,17 +1,18 @@
 package com.bsuir.green.service;
 
 import com.bsuir.green.common.command.CreateRequestCommand;
+import com.bsuir.green.common.command.GetClientIdFromRequestCommand;
 import com.bsuir.green.common.command.RequestListForStuffCommand;
+import com.bsuir.green.common.command.UpdateRequestStatusCommand;
+import com.bsuir.green.common.model.Client;
 import com.bsuir.green.common.model.Request;
 import com.bsuir.green.common.model.RequestForStuff;
-import com.bsuir.green.common.response.RequestListForStuffResponse;
-import com.bsuir.green.common.response.RequestListResponse;
-import com.bsuir.green.common.response.Response;
-import com.bsuir.green.common.response.StuffCreationResponse;
+import com.bsuir.green.common.response.*;
 import com.bsuir.green.database.dao.RequestDao;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -27,18 +28,26 @@ public class RequestService {
         return requestService;
     }
 
-    public RequestListResponse getRequests() throws SQLException {
-        List<Request> all = requestDao.getAll();
+    public Response getRequests() throws SQLException {
+        ArrayList<Request> all = requestDao.getAll();
         return new RequestListResponse(all);
     }
-    public RequestListForStuffResponse getRequestsForStuff(RequestListForStuffCommand requestListForStuffCommand) throws SQLException {
+    public Response getRequestsForStuff(RequestListForStuffCommand requestListForStuffCommand) throws SQLException {
         List<RequestForStuff> all = requestDao.getInfoForStuff(requestListForStuffCommand.getStuff().getId());
         return new RequestListForStuffResponse(all);
     }
+    public Response getClientByRequestId(GetClientIdFromRequestCommand getClientIdFromRequestCommand)throws SQLException {
+        Client client = requestDao.getClientByRequest(getClientIdFromRequestCommand);
+        return new GetClientIdFromRequestResponse(client);
 
+    }
     public Response createRequest(CreateRequestCommand сreateRequestCommand) throws SQLException {
         requestDao.createRequest(сreateRequestCommand.getRequest());
         return new StuffCreationResponse();
+    }
+    public Response uptadeRequestStatus(UpdateRequestStatusCommand updateRequestStatusCommand) throws SQLException {
+        requestDao.updateRequestStatus(updateRequestStatusCommand.getRequestId());
+        return new UpdateRequestStatusResponse();
     }
 
 }

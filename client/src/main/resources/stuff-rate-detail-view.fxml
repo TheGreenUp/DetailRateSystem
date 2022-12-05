@@ -5,15 +5,15 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Stuff.StuffRateDetailController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Stuff.StuffRateDetailController">
    <children>
-      <Label fx:id="question_1" alignment="CENTER" layoutX="29.0" layoutY="53.0" prefHeight="66.0" prefWidth="270.0" text="Вопрос 1" textAlignment="CENTER" />
-      <Label fx:id="question_2" alignment="CENTER" layoutX="29.0" layoutY="149.0" prefHeight="66.0" prefWidth="270.0" text="Вопрос 2" textAlignment="CENTER" />
-      <Label fx:id="question_3" alignment="CENTER" layoutX="29.0" layoutY="241.0" prefHeight="66.0" prefWidth="270.0" text="Вопрос 3" textAlignment="CENTER" />
-      <Slider fx:id="answer_1" layoutX="355.0" layoutY="86.0" max="10.0" prefHeight="14.0" prefWidth="186.0" />
-      <Slider fx:id="answer_2" layoutX="355.0" layoutY="175.0" max="10.0" prefHeight="14.0" prefWidth="186.0" />
-      <Slider fx:id="answer_3" layoutX="355.0" layoutY="267.0" max="10.0" prefHeight="14.0" prefWidth="186.0" />
-      <Button fx:id="makeVerdictButton" layoutX="244.0" layoutY="345.0" mnemonicParsing="false" onAction="#onMakeVerdictButton" text="Вынести вердикт" />
+      <Label fx:id="question_1" alignment="CENTER" layoutX="133.0" layoutY="27.0" prefHeight="65.0" prefWidth="542.0" text="Вопрос 1" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Label fx:id="question_2" alignment="CENTER" layoutX="133.0" layoutY="177.0" prefHeight="66.0" prefWidth="542.0" text="Вопрос 2" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Label fx:id="question_3" alignment="CENTER" layoutX="133.0" layoutY="315.0" prefHeight="66.0" prefWidth="542.0" text="Вопрос 3" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Slider fx:id="answer_1" blockIncrement="1.0" layoutX="261.0" layoutY="125.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="34.0" prefWidth="286.0" showTickLabels="true" snapToTicks="true" />
+      <Slider fx:id="answer_2" blockIncrement="1.0" layoutX="261.0" layoutY="270.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="34.0" prefWidth="286.0" showTickLabels="true" snapToTicks="true" />
+      <Slider fx:id="answer_3" blockIncrement="1.0" layoutX="260.0" layoutY="409.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="34.0" prefWidth="286.0" showTickLabels="true" snapToTicks="true" />
+      <Button fx:id="makeVerdictButton" layoutX="349.0" layoutY="502.0" mnemonicParsing="false" onAction="#onMakeVerdictButton" text="Вынести вердикт" />
       <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButton" text="Выйти" />
    </children>
 </AnchorPane>

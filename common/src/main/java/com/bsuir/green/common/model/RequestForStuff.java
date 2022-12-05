@@ -15,7 +15,17 @@ public class RequestForStuff implements Serializable {
     }
 
     //region Конструкторы
-    public RequestForStuff(int requestId,String clientFname,String clientLname,String detailName, String detailType, String requestStatus) {
+    public RequestForStuff(int requestId, int client_id, int detail_id, String clientFname,String clientLname,String detailName, String detailType, String requestStatus) {
+        this.id = requestId;
+        this.client_id = client_id;
+        this.detail_id = detail_id;
+        this.clientFname = clientFname;
+        this.clientLname = clientLname;
+        this.detailName = detailName;
+        this.detailType = detailType;
+        this.requestStatus = requestStatus;
+    }
+    public RequestForStuff(int requestId, String clientFname,String clientLname,String detailName, String detailType, String requestStatus) {
         this.id = requestId;
         this.clientFname = clientFname;
         this.clientLname = clientLname;

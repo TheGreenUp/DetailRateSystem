@@ -13,6 +13,7 @@ public enum Command implements Serializable {
     ADD_STUFF,
     UPDATE_USER,
     CREATE_RESOLUTION,
+    SPECIALIST_LIST,
     GET_CLIENT_ID_BY_REQUEST,
     UPDATE_REQUEST_STATUS,
     CREATE_DETAIL,

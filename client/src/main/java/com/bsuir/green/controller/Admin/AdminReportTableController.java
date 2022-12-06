@@ -1,7 +1,7 @@
 package com.bsuir.green.controller.Admin;
 
 import com.bsuir.green.Client;
-import com.bsuir.green.common.command.GetDetailedResolutionCommand;
+import com.bsuir.green.common.command.getCommands.GetDetailedResolutionCommand;
 import com.bsuir.green.common.model.DetailedResolution;
 import com.bsuir.green.common.response.ErrorResponse;
 import com.bsuir.green.common.response.GetDetailedResolutionResponse;
@@ -11,9 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -70,11 +70,12 @@ public class AdminReportTableController implements Initializable {
     //endregion
 
     @FXML
-    private TextField dataInputField;
+    private DatePicker startDate;
+    @FXML
+    private DatePicker endDate;
 
     @FXML
     private Button makeGeneralReportBtn;
-
     @FXML
     private Button makeReport;
     @FXML

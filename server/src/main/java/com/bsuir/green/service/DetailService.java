@@ -1,7 +1,7 @@
 package com.bsuir.green.service;
 
-import com.bsuir.green.common.command.CreateDetailCommand;
-import com.bsuir.green.common.command.GetDetailCommand;
+import com.bsuir.green.common.command.createCommands.CreateDetailCommand;
+import com.bsuir.green.common.command.getCommands.GetDetailCommand;
 import com.bsuir.green.common.response.CreateDetailResponse;
 import com.bsuir.green.common.response.GetDetailResponse;
 import com.bsuir.green.common.response.Response;

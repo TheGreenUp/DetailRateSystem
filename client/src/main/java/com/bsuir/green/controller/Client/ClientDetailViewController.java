@@ -1,7 +1,7 @@
 package com.bsuir.green.controller.Client;
 
 import com.bsuir.green.Client;
-import com.bsuir.green.common.command.GetDetailedResolutionCommand;
+import com.bsuir.green.common.command.getCommands.GetDetailedResolutionCommand;
 import com.bsuir.green.common.model.DetailedResolution;
 import com.bsuir.green.common.response.ErrorResponse;
 import com.bsuir.green.common.response.GetDetailedResolutionResponse;

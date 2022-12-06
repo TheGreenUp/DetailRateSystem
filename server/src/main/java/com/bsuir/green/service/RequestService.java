@@ -1,6 +1,9 @@
 package com.bsuir.green.service;
 
 import com.bsuir.green.common.command.*;
+import com.bsuir.green.common.command.createCommands.CreateRequestCommand;
+import com.bsuir.green.common.command.getCommands.GetAllClientDetailsCommand;
+import com.bsuir.green.common.command.getCommands.GetClientIdFromRequestCommand;
 import com.bsuir.green.common.model.Client;
 import com.bsuir.green.common.model.Request;
 import com.bsuir.green.common.model.RequestForStuff;

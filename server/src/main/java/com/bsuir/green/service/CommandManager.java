@@ -2,6 +2,10 @@ package com.bsuir.green.service;
 
 
 import com.bsuir.green.common.command.*;
+import com.bsuir.green.common.command.createCommands.AddStuffCommand;
+import com.bsuir.green.common.command.createCommands.CreateDetailCommand;
+import com.bsuir.green.common.command.createCommands.CreateRequestCommand;
+import com.bsuir.green.common.command.getCommands.*;
 import com.bsuir.green.common.response.Response;
 
 import java.sql.SQLException;
@@ -24,6 +28,7 @@ public class CommandManager {
             case REGISTER-> response = ClientService.getInstance().createUser((RegisterCommand) commandDto);
 
             case STUFF_LIST-> response = StuffService.getInstance().getStuff();
+            case SPECIALIST_LIST-> response = StuffService.getInstance().getSpecialists();
             case REQUEST_LIST_FOR_STUFF-> response = RequestService.getInstance().getRequestsForStuff((RequestListForStuffCommand)commandDto);
             case REQUEST_LIST -> response = RequestService.getInstance().getRequests();
             case QUESTION_LIST-> response = RateService.getInstance().getQuestions((GetRateQuestionsCommand) commandDto);

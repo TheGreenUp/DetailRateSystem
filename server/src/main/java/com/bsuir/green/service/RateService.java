@@ -1,6 +1,6 @@
 package com.bsuir.green.service;
 
-import com.bsuir.green.common.command.GetRateQuestionsCommand;
+import com.bsuir.green.common.command.getCommands.GetRateQuestionsCommand;
 import com.bsuir.green.common.response.GetRateQuestionsRespose;
 import com.bsuir.green.common.response.Response;
 import com.bsuir.green.enums.DetailType;

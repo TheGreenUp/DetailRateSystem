@@ -1,6 +1,6 @@
 package com.bsuir.green.service;
 
-import com.bsuir.green.common.command.GetDetailedResolutionCommand;
+import com.bsuir.green.common.command.getCommands.GetDetailedResolutionCommand;
 import com.bsuir.green.common.response.GetDetailedResolutionResponse;
 import com.bsuir.green.common.response.Response;
 import com.bsuir.green.database.dao.DetailedResolutionDao;

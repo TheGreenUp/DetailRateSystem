@@ -1,7 +1,7 @@
 package com.bsuir.green.service;
 
 
-import com.bsuir.green.common.command.AddStuffCommand;
+import com.bsuir.green.common.command.createCommands.AddStuffCommand;
 import com.bsuir.green.common.command.DeleteStuffCommand;
 import com.bsuir.green.common.command.UpdateStuffCommand;
 import com.bsuir.green.common.model.Stuff;
@@ -27,9 +27,13 @@ public class StuffService {
         return stuffService;
     }
 
-    public StuffListResponse getStuff() throws SQLException {
+    public Response getStuff() throws SQLException {
         ArrayList<Stuff> all = stuffDao.getAll();
         return new StuffListResponse(all);
+    }
+    public Response getSpecialists() throws SQLException {
+        ArrayList<Stuff> all = stuffDao.getSpecialists();
+        return new SpecialistListResponse(all);
     }
 
     public Response createStuff(AddStuffCommand addStuffCommand) throws SQLException {

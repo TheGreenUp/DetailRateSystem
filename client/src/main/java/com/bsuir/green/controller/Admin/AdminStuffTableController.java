@@ -1,12 +1,13 @@
 package com.bsuir.green.controller.Admin;
 
 import com.bsuir.green.Client;
-import com.bsuir.green.common.command.AddStuffCommand;
+import com.bsuir.green.common.command.createCommands.AddStuffCommand;
 import com.bsuir.green.common.command.DeleteStuffCommand;
 import com.bsuir.green.common.command.StuffListCommand;
 import com.bsuir.green.common.command.UpdateStuffCommand;
 import com.bsuir.green.common.model.Stuff;
 import com.bsuir.green.common.response.*;
+import com.bsuir.green.common.utils.Helper;
 import com.bsuir.green.enums.StuffRoles;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.collections.FXCollections;
@@ -20,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -73,10 +76,14 @@ public class AdminStuffTableController implements Initializable {
         ViewUtils.loadView(stage, "adminViews/admin-stuff-table-view.fxml", "Управление сотрудниками");
         currentStuff = stuff;
     }
-    public void onAddStuffButton() throws IOException {
+    public void onAddStuffButton() throws IOException, NoSuchAlgorithmException, NoSuchProviderException {
         //todo выбор роли
         //int role = getRoleByComboBox(cbGetRoles);
-        AddStuffCommand addStuffCommand = new AddStuffCommand(new Stuff(lname.getText(), fname.getText(), email.getText(), password.getText()));
+        AddStuffCommand addStuffCommand =
+                new AddStuffCommand(
+                        new Stuff(lname.getText(), fname.getText(),
+                                email.getText(), Helper.getInstance().getPasswordHash(password.getText()),
+                                getIntRoleByComboBox(cbGetRoles)));
         //todo возможность добавлять администраторов
         Client.writeObject(addStuffCommand);
         Object response = Client.readObject();
@@ -88,9 +95,13 @@ public class AdminStuffTableController implements Initializable {
             //просто ошибка
         }
     }
-    public void onUpdateButton() throws  IOException{
+    public void onUpdateButton() throws IOException, NoSuchAlgorithmException, NoSuchProviderException {
         //todo
-        UpdateStuffCommand updateStuffCommand = new UpdateStuffCommand(new Stuff(lname.getText(), fname.getText(), email.getText(), password.getText()));
+        UpdateStuffCommand updateStuffCommand =
+                new UpdateStuffCommand(new Stuff(
+                                chosenStuffId,getIntRoleByComboBox(cbGetRoles),
+                                lname.getText(), fname.getText(),
+                                email.getText(), Helper.getInstance().getPasswordHash(password.getText())));
         //todo возможность добавлять администраторов
         Client.writeObject(updateStuffCommand);
         Object response = Client.readObject();
@@ -107,12 +118,12 @@ public class AdminStuffTableController implements Initializable {
 
     }
 
-    public void onDeleteStuffButton() throws IOException {
+    public void onDeleteStuffButton() throws IOException, NoSuchAlgorithmException, NoSuchProviderException {
         //todo ДОБАВИТЬ "А ЧО ВНА2РЕ ХОЧЕШЬ УДАЛИТЬ"
         DeleteStuffCommand deleteStuffCommand = new DeleteStuffCommand(
-                new Stuff(chosenStuffId, (Integer) cbGetRoles.getValue(),
+                new Stuff(chosenStuffId, getIntRoleByComboBox(cbGetRoles),
                         lname.getText(), fname.getText(),
-                        email.getText(), password.getText()));
+                        email.getText(), Helper.getInstance().getPasswordHash(password.getText())));
         Client.writeObject(deleteStuffCommand);
         Object response = Client.readObject();
         if (response instanceof DeleteStuffResponse) {
@@ -134,8 +145,7 @@ public class AdminStuffTableController implements Initializable {
         lname.setText(columnLname.getCellData(chosenStuffIndex));
         fname.setText(columnFname.getCellData(chosenStuffIndex));
         email.setText(columnEmail.getCellData(chosenStuffIndex));
-        password.setText(columnPassword.getCellData(chosenStuffIndex));
-        cbGetRoles.setValue((int) columnRole.getCellData(chosenStuffIndex));
+        cbGetRoles.setValue(getStringRoleByComboBox ((int) columnRole.getCellData(chosenStuffIndex)));
         chosenStuffId = columnId.getCellData(chosenStuffIndex);
     }
 
@@ -179,16 +189,27 @@ public class AdminStuffTableController implements Initializable {
         }
     }
 
-    public int getRoleByComboBox(ComboBox cbGetRoles){
+    public int getIntRoleByComboBox(ComboBox cbGetRoles){
         switch ((String) cbGetRoles.getValue()) {
             case "Администратор" -> {
-                return 1;
+                return 0;
             }
             case "Специалист" -> {
-                return 0;
+                return 1;
             }
         }
         return -1;
+    }
+    public String getStringRoleByComboBox(int chosenRole ) {
+        switch (chosenRole) {
+            case 0 -> {
+                return "Администратор";
+            }
+            case 1 -> {
+                return "Специалист";
+            }
+        }
+        return null;
     }
 
 }

@@ -47,9 +47,9 @@ public class UserLogInController {
             } else {
                 Stuff stuff = ((LoginResponse) response).getStuff();
                 if (stuff.getRole() == 0) {
-                    new StuffViewController().show((Stage) loginButton.getScene().getWindow(), stuff);
-                } else {
                     new AdminViewController().show((Stage) loginButton.getScene().getWindow(), stuff);
+                } else {
+                    new StuffViewController().show((Stage) loginButton.getScene().getWindow(), stuff);
                 }
             }
 

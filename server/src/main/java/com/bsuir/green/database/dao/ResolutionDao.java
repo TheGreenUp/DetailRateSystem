@@ -1,6 +1,6 @@
 package com.bsuir.green.database.dao;
 
-import com.bsuir.green.common.command.GetResolutionCommand;
+import com.bsuir.green.common.command.getCommands.GetResolutionCommand;
 import com.bsuir.green.common.model.Resolution;
 
 import java.sql.Connection;

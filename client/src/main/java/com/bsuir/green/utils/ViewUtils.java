@@ -17,4 +17,12 @@ public class ViewUtils {
         stage.setScene(scene);
         stage.show();
     }
+    public static void showPopup(String viewName, String title) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource(viewName));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

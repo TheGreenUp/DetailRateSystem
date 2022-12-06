@@ -17,8 +17,9 @@ public final class StuffDao {
     public static final String GET_BY_ID = "SELECT * FROM stuff WHERE id = ?";
     public static final String ADD_USER_SQL = "INSERT INTO stuff(stuffName, stuffSurname, stuffEmail, stuffPassword, stuffRole) VALUES(?,?,?,?,?)";
     public static final String GET_ALL = "SELECT * FROM stuff";
+    public static final String GET_SPECIALISTS = "SELECT * FROM stuff WHERE stuffRole != 0";
     public static final String UPDATE_BY_ID =
-            "UPDATE stuff SET stuffName = ?, stuffSurname = ?, stuffEmail = ?, stuffPassword = ? where id = ?";
+            "UPDATE stuff SET stuffName = ?, stuffSurname = ?, stuffEmail = ?, stuffPassword = ?, stuffRole = ? where id = ?";
     //endregion
 
     private final ConnectionManager connectionManager;
@@ -38,7 +39,8 @@ public final class StuffDao {
             statement.setString(2, stuff.getLname());
             statement.setString(3, stuff.getEmail());
             statement.setString(4, stuff.getPassword());
-            statement.setInt(5, stuff.getId());
+            statement.setInt(5, stuff.getRole());
+            statement.setInt(6, stuff.getId());
             statement.executeUpdate();
         }
     }
@@ -109,6 +111,24 @@ public final class StuffDao {
             return stuffList;
         }
     }
+    public ArrayList<Stuff> getSpecialists() throws SQLException {
+        try (Connection connection = connectionManager.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GET_SPECIALISTS);
+            ArrayList<Stuff> stuffList = new ArrayList<>();
+            while (resultSet.next()) {
+                Stuff stuff =new Stuff(resultSet.getInt("id"),
+                        resultSet.getInt("stuffRole"),
+                        resultSet.getString("stuffSurname"),
+                        resultSet.getString("stuffName"),
+                        resultSet.getString("stuffEmail"),
+                        resultSet.getString("stuffPassword"));
+                stuffList.add(stuff);
+            }
+            return stuffList;
+        }
+    }
+
 
     public void createUser(Stuff stuff) throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {

@@ -1,5 +1,7 @@
-package com.bsuir.green.common.command;
+package com.bsuir.green.common.command.getCommands;
 
+import com.bsuir.green.common.command.Command;
+import com.bsuir.green.common.command.CommandDto;
 import com.bsuir.green.common.model.Client;
 import lombok.Data;
 

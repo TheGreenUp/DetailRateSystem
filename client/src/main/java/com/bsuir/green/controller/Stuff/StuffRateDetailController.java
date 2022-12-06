@@ -1,8 +1,8 @@
 package com.bsuir.green.controller.Stuff;
 
 import com.bsuir.green.Client;
-import com.bsuir.green.common.command.GetClientIdFromRequestCommand;
-import com.bsuir.green.common.command.GetRateQuestionsCommand;
+import com.bsuir.green.common.command.getCommands.GetClientIdFromRequestCommand;
+import com.bsuir.green.common.command.getCommands.GetRateQuestionsCommand;
 import com.bsuir.green.common.command.MakeResolutionCommand;
 import com.bsuir.green.common.command.UpdateRequestStatusCommand;
 import com.bsuir.green.common.model.Detail;

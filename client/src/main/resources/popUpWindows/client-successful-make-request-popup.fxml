@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="138.0" prefWidth="255.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Client.SuccessfulPopUpWindowClient">
+<AnchorPane prefHeight="138.0" prefWidth="255.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.green.controller.Client.successfulPopUpWindowClient">
     <children>
         <Label layoutX="8.0" layoutY="31.0" text="Запись успешно добавлена!">
             <font>

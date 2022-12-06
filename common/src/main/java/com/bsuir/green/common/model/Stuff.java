@@ -79,4 +79,11 @@ public class Stuff implements Serializable {
         this.email = email;
         this.password = password;
     }
+    public Stuff(String lname, String fname, String email, String password, int role) {
+        this.lname = lname;
+        this.fname = fname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }

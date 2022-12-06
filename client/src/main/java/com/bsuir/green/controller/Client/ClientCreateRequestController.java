@@ -1,17 +1,14 @@
 package com.bsuir.green.controller.Client;
 
 import com.bsuir.green.Client;
-import com.bsuir.green.common.command.CreateDetailCommand;
-import com.bsuir.green.common.command.CreateRequestCommand;
-import com.bsuir.green.common.command.GetDetailCommand;
-import com.bsuir.green.common.command.StuffListCommand;
+import com.bsuir.green.common.command.SpecialistListCommand;
+import com.bsuir.green.common.command.createCommands.CreateDetailCommand;
+import com.bsuir.green.common.command.createCommands.CreateRequestCommand;
+import com.bsuir.green.common.command.getCommands.GetDetailCommand;
 import com.bsuir.green.common.model.Detail;
 import com.bsuir.green.common.model.Request;
 import com.bsuir.green.common.model.Stuff;
-import com.bsuir.green.common.response.CreateDetailResponse;
-import com.bsuir.green.common.response.CreateRequestResponse;
-import com.bsuir.green.common.response.GetDetailResponse;
-import com.bsuir.green.common.response.StuffListResponse;
+import com.bsuir.green.common.response.*;
 import com.bsuir.green.enums.DetailType;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.fxml.FXML;
@@ -54,11 +51,11 @@ public class ClientCreateRequestController implements Initializable {
         cbDetailType.getItems().addAll(DetailType.getLables());//закидываем значения в комбобокс с типами деталей
         //region Инициализируем comboBox с сотрудниками
 
-        StuffListCommand stuffListCommand = new StuffListCommand();
+        SpecialistListCommand stuffListCommand = new SpecialistListCommand();
         Client.writeObject(stuffListCommand);
         Object response = Client.readObject();
-        if (response instanceof StuffListResponse) {
-            stuffArrayList = ((StuffListResponse) response).getStuff();
+        if (response instanceof SpecialistListResponse) {
+            stuffArrayList = ((SpecialistListResponse) response).getStuff();
         }
         cbChosenStuff.getItems().addAll(stuffArrayList);
         //endregion
@@ -73,7 +70,8 @@ public class ClientCreateRequestController implements Initializable {
         Client.writeObject(createRequestCommand);
         Object response = Client.readObject();
         if (response instanceof CreateRequestResponse) {
-            new SuccessfulPopUpWindowClient().show((Stage) backButton.getScene().getWindow(), currentClient);
+            //todo поменять на Popup окошко
+            onBackButton();
         }
 
     }

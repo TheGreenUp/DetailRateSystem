@@ -3,9 +3,16 @@ package com.bsuir.green.common.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 
-public class hashPassword  {
+public class Helper {
+    private static final Helper helper = new Helper();
+
+    private Helper() {
+    }
+
+    public static Helper getInstance() {
+        return helper;
+    }
     public String getPasswordHash(String passwordToHash) throws NoSuchAlgorithmException, NoSuchProviderException {
         String salt = getSalt();
         return getSecurePassword(passwordToHash, salt);
@@ -44,15 +51,15 @@ public class hashPassword  {
             throws NoSuchAlgorithmException, NoSuchProviderException
     {
         // Always use a SecureRandom generator
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        //SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
 
         // Create array for salt
-        byte[] salt = new byte[16];
+        //byte[] salt = new byte[16];
 
         // Get a random salt
-        sr.nextBytes(salt);
+        //sr.nextBytes(salt);
 
         // return salt
-        return salt.toString();
+        return "GeneratedSalt";
     }
 }

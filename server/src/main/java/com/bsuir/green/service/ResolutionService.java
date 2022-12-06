@@ -1,7 +1,7 @@
 package com.bsuir.green.service;
 
 
-import com.bsuir.green.common.command.GetResolutionCommand;
+import com.bsuir.green.common.command.getCommands.GetResolutionCommand;
 import com.bsuir.green.common.command.MakeResolutionCommand;
 import com.bsuir.green.common.response.GetResoutionResponse;
 import com.bsuir.green.common.response.MakeResolutionResponse;

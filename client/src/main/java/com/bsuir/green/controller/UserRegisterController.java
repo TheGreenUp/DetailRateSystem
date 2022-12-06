@@ -4,13 +4,17 @@ import com.bsuir.green.Client;
 import com.bsuir.green.common.command.RegisterCommand;
 import com.bsuir.green.common.response.ErrorResponse;
 import com.bsuir.green.common.response.RegisterResponse;
+import com.bsuir.green.common.utils.Helper;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 public class UserRegisterController {
 
@@ -21,7 +25,7 @@ public class UserRegisterController {
     @FXML
     private TextField email;
     @FXML
-    private TextField password;
+    private PasswordField password;
 
     @FXML
     private Button registerButton;
@@ -33,14 +37,15 @@ public class UserRegisterController {
     public void onExitButton() throws  IOException{
         new UserLogInController().show((Stage) exitFromFormButton.getScene().getWindow());
     }
-    public void onRegisterButton() throws IOException {
+    public void onRegisterButton() throws IOException, NoSuchAlgorithmException, NoSuchProviderException {
         RegisterCommand registerCommand = new RegisterCommand(
-                new com.bsuir.green.common.model.Client(fname.getText(),lname.getText(),email.getText(),password.getText()));
+                new com.bsuir.green.common.model.Client(
+                        fname.getText(),lname.getText(),email.getText(),
+                        Helper.getInstance().getPasswordHash(password.getText())));
         Client.writeObject(registerCommand);
         Object response = Client.readObject();
         if (response instanceof RegisterResponse) {
-            //todo появляюющаяся надпись "Всё четко!" и выход в логин
-            onExitButton();
+            ViewUtils.showPopup("/popUpWindows/succesfull-registration.fxml","Успешная регистрация!");
         }
         else if (response instanceof ErrorResponse) {
             //знаем какая ошибка

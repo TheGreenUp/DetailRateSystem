@@ -1,6 +1,6 @@
 package com.bsuir.green.database.dao;
 
-import com.bsuir.green.common.command.GetClientIdFromRequestCommand;
+import com.bsuir.green.common.command.getCommands.GetClientIdFromRequestCommand;
 import com.bsuir.green.common.model.Client;
 import com.bsuir.green.common.model.Detail;
 import com.bsuir.green.common.model.Request;
@@ -18,9 +18,10 @@ public class RequestDao {
     public static final String GET_BY_ID = "SELECT * FROM request WHERE id = ?";
     public static final String UPDATE_REQUEST_STATUS = "UPDATE request SET status = 'Проверена' WHERE request.id = ?";
     public static final String GET_ALL = "SELECT * FROM request";
-    public static final String GET_ALL_FOR_STUFF = "SELECT * FROM request" +
-            " JOIN autosalon.detail ON detail_id = autosalon.detail.id" +
-            " JOIN autosalon.client ON stuff_id = autosalon.client.id WHERE stuff_id = ? AND  status = 'В процессе'";
+    public static final String GET_ALL_FOR_STUFF = "SELECT * FROM request " +
+            " JOIN autosalon.detail ON detail_id = autosalon.detail.id " +
+            " JOIN autosalon.client ON client_id = autosalon.client.id" +
+            " WHERE status = 'В процессе' AND stuff_id = ?";
     public static final String CREATE_REQUEST = "INSERT INTO request(detail_id,stuff_id,client_id) VALUES(?,?,?)";
     public static final String GET_CLIENT_BY_REQUEST_ID = "SELECT * FROM autosalon.request" +
             " JOIN autosalon.client ON client_id = client.id WHERE request.id = ?";

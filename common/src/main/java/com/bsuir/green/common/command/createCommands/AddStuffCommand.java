@@ -1,5 +1,7 @@
-package com.bsuir.green.common.command;
+package com.bsuir.green.common.command.createCommands;
 
+import com.bsuir.green.common.command.Command;
+import com.bsuir.green.common.command.CommandDto;
 import com.bsuir.green.common.model.Stuff;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,7 +9,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class AddStuffCommand extends CommandDto {
-
     private final Stuff stuff;
 
     public AddStuffCommand(Stuff stuff) {

@@ -37,6 +37,7 @@ public class CommandManager {
 
             case ADD_STUFF -> response = StuffService.getInstance().createStuff((AddStuffCommand) commandDto);
             case DELETE_STUFF-> response = StuffService.getInstance().deleteStuff((DeleteStuffCommand) commandDto);
+            case CHECK_STUFF_EXIST-> response = StuffService.getInstance().checkExistance((CheckStuffExistCommand) commandDto);
 
             case CREATE_RESOLUTION-> response = ResolutionService.getInstance().addResolution((MakeResolutionCommand) commandDto);
             case CREATE_REQUEST-> response = RequestService.getInstance().createRequest((CreateRequestCommand) commandDto);
@@ -50,6 +51,7 @@ public class CommandManager {
             case GET_RESOLUTION-> response = ResolutionService.getInstance().getResolution((GetResolutionCommand) commandDto);
             case GET_ALL_CLIENTS_DETAILS -> response = RequestService.getInstance().getAllClientDetails((GetAllClientDetailsCommand) commandDto);
             case GET_DETAILED_RESOLUTIONS -> response = DetailedResolutionService.getInstance().getResolution();
+            case GET_ALL_CLIENT_DETAILED_RESOLUTIONS -> response = DetailedResolutionService.getInstance().getClientResolution((GetClientDetailedResolutionCommand) commandDto);
             case GET_DETAILED_RESOLUTIONS_BETWEEN_DATES -> response = DetailedResolutionService.getInstance().getResolutionBetweenDates((GetDetailedResolutionBetweenDatesCommand) commandDto);
             default -> throw new RuntimeException("Команда не поддерживаестя " + commandDto.getCommand());
         }

@@ -38,6 +38,7 @@
       <Button fx:id="backButton" layoutX="26.0" layoutY="406.0" mnemonicParsing="false" onAction="#onBackButton" text="Назад" />
       <DatePicker fx:id="startDate" layoutX="315.0" layoutY="389.0" prefHeight="26.0" prefWidth="195.0" promptText="начальная дата" />
       <DatePicker fx:id="endDate" layoutX="315.0" layoutY="421.0" prefHeight="26.0" prefWidth="195.0" promptText="конечная дата" />
-      <Button fx:id="makeDiagramBtn" layoutX="817.0" layoutY="406.0" mnemonicParsing="false" onAction="#onMakeDiagramButton" text="Диаграмма" />
+      <Button fx:id="makeDiagramBtn" layoutX="823.0" layoutY="376.0" mnemonicParsing="false" onAction="#onMakeDiagramButton" text="Диаграмма" />
+      <Button layoutX="808.0" layoutY="434.0" mnemonicParsing="false" onAction="#makeTxtReport" text="Текстовый отчёт" />
    </children>
 </AnchorPane>

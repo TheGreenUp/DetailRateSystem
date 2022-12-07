@@ -79,6 +79,7 @@ public class StuffRateDetailController implements Initializable {
                 response = changeRequestStatus(requestId);
                 if (response instanceof UpdateRequestStatusResponse) {
                     DialogUtils.showOk("Запись успешно добавлена!", "Успех!");
+                    onBackButton();
                 }
             } else if (response instanceof ErrorResponse) {
 

@@ -63,7 +63,9 @@ public class Stuff implements Serializable {
 
     public Stuff() {
     }
-
+    public Stuff(String email) {
+        this.email = email;
+    }
     public Stuff(int id, int role, String lname, String fname, String email, String password) {
         this.id = id;
         this.role = role;

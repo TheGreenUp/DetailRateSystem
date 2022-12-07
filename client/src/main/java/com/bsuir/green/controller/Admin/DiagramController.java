@@ -41,7 +41,7 @@ public class DiagramController {
         Stage stage = (Stage) backButton.getScene().getWindow();
         stage.close();
     }
-    private void init() {//todo это тоже костыль
+    private void init() {
         //region Заполняем значениями
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(

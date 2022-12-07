@@ -1,5 +1,6 @@
 package com.bsuir.green.database.dao;
 
+import com.bsuir.green.common.command.GetClientDetailedResolutionCommand;
 import com.bsuir.green.common.command.getCommands.GetDetailedResolutionBetweenDatesCommand;
 import com.bsuir.green.common.model.DetailedResolution;
 
@@ -22,7 +23,7 @@ public class DetailedResolutionDao {
             "JOIN autosalon.request ON request_id = request.id " +
             "JOIN autosalon.stuff ON stuff_id = stuff.id " +
             "JOIN autosalon.detail ON request_detail_id = autosalon.detail.id " +
-            "JOIN autosalon.client ON request_client_id = autosalon.client.id;";
+            "JOIN autosalon.client ON request_client_id = autosalon.client.id WHERE client_id = ?";
     private static final String GET_RESOLUTIONS_BETWEEN_DATE = "SELECT * FROM autosalon.resolution\n" +
             "JOIN autosalon.request ON request_id = request.id " +
             "JOIN autosalon.stuff ON stuff_id = stuff.id " +
@@ -42,8 +43,33 @@ public class DetailedResolutionDao {
                                 resultSet.getString("stuffName"),
                                 resultSet.getString("stuffSurname"),
                                 resultSet.getString("stuffEmail"),
-                                resultSet.getString("clientName"),
                                 resultSet.getString("clientSurname"),
+                                resultSet.getString("clientName"),
+                                resultSet.getString("clientEmail"),
+                                resultSet.getString("result"),
+                                resultSet.getDate("date"));
+                resolutions.add(resolution);
+
+            }
+            return resolutions;
+        }
+    }
+    public ArrayList<DetailedResolution> getClientResolution(GetClientDetailedResolutionCommand command) throws SQLException {
+        ArrayList<DetailedResolution> resolutions = new ArrayList<>();
+        try (Connection connection = connectionManager.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_RESOLUTIONS);
+            statement.setInt(1,command.getId());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                DetailedResolution resolution =
+                        new DetailedResolution(
+                                resultSet.getString("type"),
+                                resultSet.getString("name"),
+                                resultSet.getString("stuffName"),
+                                resultSet.getString("stuffSurname"),
+                                resultSet.getString("stuffEmail"),
+                                resultSet.getString("clientSurname"),
+                                resultSet.getString("clientName"),
                                 resultSet.getString("clientEmail"),
                                 resultSet.getString("result"),
                                 resultSet.getDate("date"));

@@ -66,6 +66,10 @@ public class ClientCreateRequestController implements Initializable {
     }
 
     public void onCreateRequestButton() throws IOException {
+        if (cbDetailType.getValue() == null || detailName.getText() == null || cbChosenStuff.getValue() == null) {
+            DialogUtils.showError("Некоторые обязательные поля не заполнены!", "Ошибка!");
+            return;
+        }
         createDetail();
         Detail detail = getDetail(new Detail(cbDetailType.getValue(), detailName.getText()));
         Stuff chosenStuff = (Stuff)cbChosenStuff.getValue();

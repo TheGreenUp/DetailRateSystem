@@ -1,6 +1,7 @@
 package com.bsuir.green.service;
 
 
+import com.bsuir.green.common.command.CheckStuffExistCommand;
 import com.bsuir.green.common.command.createCommands.AddStuffCommand;
 import com.bsuir.green.common.command.DeleteStuffCommand;
 import com.bsuir.green.common.command.UpdateStuffCommand;
@@ -70,5 +71,8 @@ public class StuffService {
         catch (Exception e) {
             return new ErrorResponse("Не получилось удалить пользователя!");
         }
+    }
+    public Response checkExistance(CheckStuffExistCommand command) throws SQLException {
+            return new CheckStuffExistResponse(stuffDao.checkStuffExist(command));
     }
 }

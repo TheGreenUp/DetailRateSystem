@@ -1,10 +1,10 @@
 package com.bsuir.green.controller.Client;
 
 import com.bsuir.green.Client;
-import com.bsuir.green.common.command.getCommands.GetDetailedResolutionCommand;
+import com.bsuir.green.common.command.GetClientDetailedResolutionCommand;
 import com.bsuir.green.common.model.DetailedResolution;
 import com.bsuir.green.common.response.ErrorResponse;
-import com.bsuir.green.common.response.getResponse.GetDetailedResolutionResponse;
+import com.bsuir.green.common.response.getResponse.GetClientDetailedResResponse;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,12 +68,11 @@ public class ClientDetailViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //todo Отображаются не свои заказы
-        GetDetailedResolutionCommand getDetailedResolutionCommand = new GetDetailedResolutionCommand();
-        Client.writeObject(getDetailedResolutionCommand);
+        GetClientDetailedResolutionCommand command = new GetClientDetailedResolutionCommand(client.getId());
+        Client.writeObject(command);
         Object response = Client.readObject();
-        if (response instanceof GetDetailedResolutionResponse) {
-            resolutionList = FXCollections.observableList(((GetDetailedResolutionResponse) response).getResolutions());
+        if (response instanceof GetClientDetailedResResponse) {
+            resolutionList = FXCollections.observableList(((GetClientDetailedResResponse) response).getResolutions());
             setCellTable(resolutionList);
         } else if (response instanceof ErrorResponse) {
 

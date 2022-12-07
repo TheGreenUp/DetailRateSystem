@@ -1,6 +1,7 @@
 package com.bsuir.green.controller.Admin;
 
 import com.bsuir.green.Client;
+import com.bsuir.green.common.command.CheckStuffExistCommand;
 import com.bsuir.green.common.command.createCommands.AddStuffCommand;
 import com.bsuir.green.common.command.DeleteStuffCommand;
 import com.bsuir.green.common.command.listCommands.StuffListCommand;
@@ -85,7 +86,10 @@ public class AdminStuffTableController implements Initializable {
             DialogUtils.showError("Неправильный email", "Ошибка!");
             return;
         }
-        //todo check existing
+        if (checkStuffExistance(new Stuff(email.getText())))  {
+            DialogUtils.showError("Пользователь уже существует!", "Ошибка!");
+            return;
+        }
         AddStuffCommand addStuffCommand =
                 new AddStuffCommand(
                         new Stuff(lname.getText(), fname.getText(),
@@ -213,6 +217,19 @@ public class AdminStuffTableController implements Initializable {
             }
         }
         return null;
+    }
+    private boolean checkStuffExistance(Stuff stuff){
+        CheckStuffExistCommand checkStuffExistCommand = new CheckStuffExistCommand(stuff);
+        Client.writeObject(checkStuffExistCommand);
+        Object response = Client.readObject();
+        if (response instanceof CheckStuffExistResponse) {
+            return ((CheckStuffExistResponse) response).isExist();//false если не существует, true - если существует
+        } else if (response instanceof ErrorResponse) {
+            DialogUtils.showError(((ErrorResponse) response).getErrorMessage(), "Ошибка!");
+        } else {
+            System.out.println("Unknown error");
+        }
+        return true;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.bsuir.green.database.dao;
 
 
+import com.bsuir.green.common.command.CheckStuffExistCommand;
 import com.bsuir.green.common.model.Stuff;
 import com.bsuir.green.exception.UserNotFoundException;
 
@@ -18,6 +19,7 @@ public final class StuffDao {
     public static final String ADD_USER_SQL = "INSERT INTO stuff(stuffName, stuffSurname, stuffEmail, stuffPassword, stuffRole) VALUES(?,?,?,?,?)";
     public static final String GET_ALL = "SELECT * FROM stuff";
     public static final String GET_SPECIALISTS = "SELECT * FROM stuff WHERE stuffRole != 0";
+    public static final String CHECK_STUFF_EXIST = "SELECT * FROM stuff WHERE stuffEmail = ?";
     public static final String UPDATE_BY_ID =
             "UPDATE stuff SET stuffName = ?, stuffSurname = ?, stuffEmail = ?, stuffPassword = ?, stuffRole = ? where id = ?";
     //endregion
@@ -128,8 +130,6 @@ public final class StuffDao {
             return stuffList;
         }
     }
-
-
     public void createUser(Stuff stuff) throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(ADD_USER_SQL);
@@ -139,6 +139,14 @@ public final class StuffDao {
             statement.setString(4, stuff.getPassword());
             statement.setInt(5, stuff.getRole());
             statement.executeUpdate();
+        }
+    }
+    public boolean checkStuffExist(CheckStuffExistCommand command) throws SQLException {
+        try (Connection connection = connectionManager.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(CHECK_STUFF_EXIST);
+            statement.setString(1, command.getStuff().getEmail());
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
         }
     }
 }

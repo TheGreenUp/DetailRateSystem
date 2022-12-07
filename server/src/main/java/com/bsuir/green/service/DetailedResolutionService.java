@@ -1,7 +1,8 @@
 package com.bsuir.green.service;
 
-import com.bsuir.green.common.command.getCommands.GetDetailedResolutionCommand;
-import com.bsuir.green.common.response.GetDetailedResolutionResponse;
+import com.bsuir.green.common.command.getCommands.GetDetailedResolutionBetweenDatesCommand;
+import com.bsuir.green.common.response.getResponse.GetDetailedResolutionBetweenDateResponse;
+import com.bsuir.green.common.response.getResponse.GetDetailedResolutionResponse;
 import com.bsuir.green.common.response.Response;
 import com.bsuir.green.database.dao.DetailedResolutionDao;
 
@@ -20,8 +21,12 @@ public class DetailedResolutionService {
         detailedResolutionDao = DetailedResolutionDao.getInstance();
     }
 
-    public Response getResolution(GetDetailedResolutionCommand getDetailedResolutionCommand) throws SQLException {
+    public Response getResolution() throws SQLException {
         return new GetDetailedResolutionResponse(DetailedResolutionDao.getInstance().getResolution());
+
+    }
+    public Response getResolutionBetweenDates(GetDetailedResolutionBetweenDatesCommand command) throws SQLException {
+       return new GetDetailedResolutionBetweenDateResponse(DetailedResolutionDao.getInstance().getResolutionBetweenDate(command));
 
     }
 

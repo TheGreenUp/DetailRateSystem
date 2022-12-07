@@ -1,13 +1,19 @@
 package com.bsuir.green.service;
 
 import com.bsuir.green.common.command.*;
+import com.bsuir.green.common.command.listCommands.RequestListForStuffCommand;
 import com.bsuir.green.common.command.createCommands.CreateRequestCommand;
 import com.bsuir.green.common.command.getCommands.GetAllClientDetailsCommand;
 import com.bsuir.green.common.command.getCommands.GetClientIdFromRequestCommand;
 import com.bsuir.green.common.model.Client;
 import com.bsuir.green.common.model.Request;
-import com.bsuir.green.common.model.RequestForStuff;
+import com.bsuir.green.common.model.RequestExtended;
 import com.bsuir.green.common.response.*;
+import com.bsuir.green.common.response.createResponse.CreateRequestResponse;
+import com.bsuir.green.common.response.getResponse.GetAllClientDetailsResponse;
+import com.bsuir.green.common.response.getResponse.GetClientIdFromRequestResponse;
+import com.bsuir.green.common.response.listRepsonse.RequestListForStuffResponse;
+import com.bsuir.green.common.response.listRepsonse.RequestListResponse;
 import com.bsuir.green.database.dao.RequestDao;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +39,7 @@ public class RequestService {
         return new RequestListResponse(all);
     }
     public Response getRequestsForStuff(RequestListForStuffCommand requestListForStuffCommand) throws SQLException {
-        List<RequestForStuff> all = requestDao.getInfoForStuff(requestListForStuffCommand.getStuff().getId());
+        List<RequestExtended> all = requestDao.getInfoForStuff(requestListForStuffCommand.getStuff().getId());
         return new RequestListForStuffResponse(all);
     }
     public Response getClientByRequestId(GetClientIdFromRequestCommand getClientIdFromRequestCommand)throws SQLException {

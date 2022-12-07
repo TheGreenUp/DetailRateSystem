@@ -1,15 +1,19 @@
 package com.bsuir.green.controller.Client;
 
 import com.bsuir.green.Client;
-import com.bsuir.green.common.command.SpecialistListCommand;
+import com.bsuir.green.common.command.listCommands.SpecialistListCommand;
 import com.bsuir.green.common.command.createCommands.CreateDetailCommand;
 import com.bsuir.green.common.command.createCommands.CreateRequestCommand;
 import com.bsuir.green.common.command.getCommands.GetDetailCommand;
 import com.bsuir.green.common.model.Detail;
 import com.bsuir.green.common.model.Request;
 import com.bsuir.green.common.model.Stuff;
-import com.bsuir.green.common.response.*;
+import com.bsuir.green.common.response.createResponse.CreateDetailResponse;
+import com.bsuir.green.common.response.createResponse.CreateRequestResponse;
+import com.bsuir.green.common.response.getResponse.GetDetailResponse;
+import com.bsuir.green.common.response.listRepsonse.SpecialistListResponse;
 import com.bsuir.green.enums.DetailType;
+import com.bsuir.green.utils.DialogUtils;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -70,7 +74,7 @@ public class ClientCreateRequestController implements Initializable {
         Client.writeObject(createRequestCommand);
         Object response = Client.readObject();
         if (response instanceof CreateRequestResponse) {
-            //todo поменять на Popup окошко
+            DialogUtils.showOk("Запрос успешно создан!", "Успех!");
             onBackButton();
         }
 

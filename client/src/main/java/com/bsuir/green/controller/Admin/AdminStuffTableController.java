@@ -3,12 +3,16 @@ package com.bsuir.green.controller.Admin;
 import com.bsuir.green.Client;
 import com.bsuir.green.common.command.createCommands.AddStuffCommand;
 import com.bsuir.green.common.command.DeleteStuffCommand;
-import com.bsuir.green.common.command.StuffListCommand;
+import com.bsuir.green.common.command.listCommands.StuffListCommand;
 import com.bsuir.green.common.command.UpdateStuffCommand;
 import com.bsuir.green.common.model.Stuff;
 import com.bsuir.green.common.response.*;
+import com.bsuir.green.common.response.createResponse.StuffCreationResponse;
+import com.bsuir.green.common.response.listRepsonse.StuffListResponse;
 import com.bsuir.green.common.utils.Helper;
 import com.bsuir.green.enums.StuffRoles;
+import com.bsuir.green.utils.DialogUtils;
+import com.bsuir.green.utils.Validator;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,7 +47,7 @@ public class AdminStuffTableController implements Initializable {
     ObservableList<Stuff> stufflist;
     int chosenStuffIndex = -1;
     Stuff currentStuff = null;
-    int chosenStuffId = -1; //todo эт косяк, но я хз как его править. Надо из таблицы получать ID, но выдавать ID для регистрации такое себе
+    int chosenStuffId = -1;
 
     //region table
     @FXML
@@ -76,15 +80,17 @@ public class AdminStuffTableController implements Initializable {
         ViewUtils.loadView(stage, "adminViews/admin-stuff-table-view.fxml", "Управление сотрудниками");
         currentStuff = stuff;
     }
-    public void onAddStuffButton() throws IOException, NoSuchAlgorithmException, NoSuchProviderException {
-        //todo выбор роли
-        //int role = getRoleByComboBox(cbGetRoles);
+    public void onAddStuffButton() throws IOException, NoSuchAlgorithmException, NoSuchProviderException {;
+        if (!Validator.emailValidation(email.getText())) {
+            DialogUtils.showError("Неправильный email", "Ошибка!");
+            return;
+        }
+        //todo check existing
         AddStuffCommand addStuffCommand =
                 new AddStuffCommand(
                         new Stuff(lname.getText(), fname.getText(),
                                 email.getText(), Helper.getInstance().getPasswordHash(password.getText()),
                                 getIntRoleByComboBox(cbGetRoles)));
-        //todo возможность добавлять администраторов
         Client.writeObject(addStuffCommand);
         Object response = Client.readObject();
         if (response instanceof StuffCreationResponse) {
@@ -96,13 +102,11 @@ public class AdminStuffTableController implements Initializable {
         }
     }
     public void onUpdateButton() throws IOException, NoSuchAlgorithmException, NoSuchProviderException {
-        //todo
         UpdateStuffCommand updateStuffCommand =
                 new UpdateStuffCommand(new Stuff(
                                 chosenStuffId,getIntRoleByComboBox(cbGetRoles),
                                 lname.getText(), fname.getText(),
                                 email.getText(), Helper.getInstance().getPasswordHash(password.getText())));
-        //todo возможность добавлять администраторов
         Client.writeObject(updateStuffCommand);
         Object response = Client.readObject();
         if (response instanceof UpdateStuffResponse) {
@@ -119,7 +123,7 @@ public class AdminStuffTableController implements Initializable {
     }
 
     public void onDeleteStuffButton() throws IOException, NoSuchAlgorithmException, NoSuchProviderException {
-        //todo ДОБАВИТЬ "А ЧО ВНА2РЕ ХОЧЕШЬ УДАЛИТЬ"
+        if (!DialogUtils.deleteConfirmation()) return;
         DeleteStuffCommand deleteStuffCommand = new DeleteStuffCommand(
                 new Stuff(chosenStuffId, getIntRoleByComboBox(cbGetRoles),
                         lname.getText(), fname.getText(),
@@ -127,12 +131,11 @@ public class AdminStuffTableController implements Initializable {
         Client.writeObject(deleteStuffCommand);
         Object response = Client.readObject();
         if (response instanceof DeleteStuffResponse) {
-            //todo обновить таблицу
             refreshTable();
         } else if (response instanceof ErrorResponse) {
-            //todo sout error response
+            DialogUtils.showError(((ErrorResponse) response).getErrorMessage(), "Ошибка!");
         } else {
-            //todo log.error
+            System.out.println("Unknown error");
         }
     }
 
@@ -159,7 +162,7 @@ public class AdminStuffTableController implements Initializable {
         stuffTable.setItems(stufflist);
     }
 
-    private void refreshTable() {//todo тут одинаковый код с init, но я хз как поправить, ибо при удалении и добавлении хотелось бы, чтобы сразу таблица обновлялась
+    private void refreshTable() {
         StuffListCommand stuffListCommand = new StuffListCommand();
         Client.writeObject(stuffListCommand);
         Object response = Client.readObject();

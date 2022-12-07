@@ -34,10 +34,10 @@
             <TableColumn fx:id="columnDate" prefWidth="115.20001220703125" text="Дата" />
         </columns>
       </TableView>
-      <Button fx:id="makeGeneralReportBtn" layoutX="827.0" layoutY="410.0" mnemonicParsing="false" onAction="#onMakeGeneralReportBtn" text="За всё время" />
-      <Button fx:id="makeReport" layoutX="522.0" layoutY="410.0" mnemonicParsing="false" onAction="#onMakeReportButton" text="Просмотртеть" />
-      <Button fx:id="backButton" layoutX="24.0" layoutY="410.0" mnemonicParsing="false" onAction="#onBackButton" text="Назад" />
-      <DatePicker fx:id="startDate" layoutX="305.0" layoutY="397.0" prefHeight="26.0" prefWidth="195.0" promptText="начальная дата" />
-      <DatePicker fx:id="endDate" layoutX="305.0" layoutY="429.0" prefHeight="26.0" prefWidth="195.0" promptText="конечная дата" />
+      <Button fx:id="makeReport" layoutX="532.0" layoutY="402.0" mnemonicParsing="false" onAction="#onMakeReportButton" text="Просмотртеть" />
+      <Button fx:id="backButton" layoutX="26.0" layoutY="406.0" mnemonicParsing="false" onAction="#onBackButton" text="Назад" />
+      <DatePicker fx:id="startDate" layoutX="315.0" layoutY="389.0" prefHeight="26.0" prefWidth="195.0" promptText="начальная дата" />
+      <DatePicker fx:id="endDate" layoutX="315.0" layoutY="421.0" prefHeight="26.0" prefWidth="195.0" promptText="конечная дата" />
+      <Button fx:id="makeDiagramBtn" layoutX="817.0" layoutY="406.0" mnemonicParsing="false" onAction="#onMakeDiagramButton" text="Диаграмма" />
    </children>
 </AnchorPane>

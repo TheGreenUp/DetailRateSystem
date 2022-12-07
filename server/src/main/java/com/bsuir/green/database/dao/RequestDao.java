@@ -4,7 +4,7 @@ import com.bsuir.green.common.command.getCommands.GetClientIdFromRequestCommand;
 import com.bsuir.green.common.model.Client;
 import com.bsuir.green.common.model.Detail;
 import com.bsuir.green.common.model.Request;
-import com.bsuir.green.common.model.RequestForStuff;
+import com.bsuir.green.common.model.RequestExtended;
 import com.bsuir.green.exception.UserNotFoundException;
 
 import java.sql.*;
@@ -65,14 +65,14 @@ public class RequestDao {
         }
     }
 
-    public List<RequestForStuff> getInfoForStuff(int stuff_id) throws SQLException {
+    public List<RequestExtended> getInfoForStuff(int stuff_id) throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_FOR_STUFF);
             statement.setInt(1, stuff_id);
             ResultSet resultSet = statement.executeQuery();
-            List<RequestForStuff> requests = new ArrayList<>();
+            List<RequestExtended> requests = new ArrayList<>();
             while (resultSet.next()) {
-                RequestForStuff requestForStuff = new RequestForStuff(
+                RequestExtended requestExtended = new RequestExtended(
                         resultSet.getInt("id"),
                         resultSet.getInt("client.id"),
                         resultSet.getInt("detail.id"),
@@ -81,7 +81,7 @@ public class RequestDao {
                         resultSet.getString("name"),
                         resultSet.getString("type"),
                         resultSet.getString("status"));
-                requests.add(requestForStuff);
+                requests.add(requestExtended);
             }
             return requests;
         }

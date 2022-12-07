@@ -1,15 +1,22 @@
 package com.bsuir.green.controller.Admin;
 
 import com.bsuir.green.Client;
+import com.bsuir.green.common.command.getCommands.GetDetailedResolutionBetweenDatesCommand;
 import com.bsuir.green.common.command.getCommands.GetDetailedResolutionCommand;
 import com.bsuir.green.common.model.DetailedResolution;
 import com.bsuir.green.common.response.ErrorResponse;
-import com.bsuir.green.common.response.GetDetailedResolutionResponse;
+import com.bsuir.green.common.response.getResponse.GetDetailedResolutionBetweenDateResponse;
+import com.bsuir.green.common.response.getResponse.GetDetailedResolutionResponse;
+import com.bsuir.green.utils.DialogUtils;
 import com.bsuir.green.utils.ViewUtils;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -68,19 +75,17 @@ public class AdminReportTableController implements Initializable {
     private TableView<DetailedResolution> infoTable;
 
     //endregion
-
     @FXML
     private DatePicker startDate;
     @FXML
     private DatePicker endDate;
 
     @FXML
-    private Button makeGeneralReportBtn;
+    private Button onMakeDiagramButton;
     @FXML
     private Button makeReport;
     @FXML
     private Button backButton;
-
 
     ObservableList<DetailedResolution> resolutionList;
 
@@ -90,17 +95,65 @@ public class AdminReportTableController implements Initializable {
     }
 
     @FXML
-    void onMakeGeneralReportBtn() throws IOException {
-    }
+    void onMakeDiagramButton() throws IOException {
+        //todo if no records
 
+        for (DetailedResolution resolution : infoTable.getItems()) {
+            if (resolution.getResult().equals("Сертифицирована"))  return;
+             else return;
+
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/popUpWindows/show-diagram.fxml"));
+        Parent root = (Parent) loader.load();
+        DiagramController diagramController = loader.getController();
+        diagramController.getNumbers(prepareForCreatingDiagram());
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
     @FXML
     void onMakeReportButton() {
-        //todo datepicker
-    }
+        if (startDate.getValue() == null || endDate.getValue() == null) {
+            DialogUtils.showError("Поля с датами не заполнены!","Ошибка!");
+            return;
+        }
+        GetDetailedResolutionBetweenDatesCommand command
+                = new GetDetailedResolutionBetweenDatesCommand(
+                startDate.getValue(), endDate.getValue());
+        Client.writeObject(command);
+        Object response = Client.readObject();
+        if (response instanceof GetDetailedResolutionBetweenDateResponse) {
+            resolutionList = FXCollections.observableList(((GetDetailedResolutionBetweenDateResponse) response).getResolutions());
+            setCellTable(resolutionList);
+        } else if (response instanceof ErrorResponse) {
 
+        } else {
+            System.out.println("Unknown error");
+        }
+    }
 
     public void show(Stage stage) throws IOException {
         ViewUtils.loadView(stage, "adminViews/admin-create-report-view.fxml", "Создание отчёта");
+    }
+
+    private int[] prepareForCreatingDiagram() {
+        int numOfSertifDetails = 0;
+        int numOfUnsertifDetails = 0;
+
+        int[] numbers = new int[2];
+
+
+        for (DetailedResolution resolution : infoTable.getItems()) {
+            if (resolution.getResult().equals("Сертифицирована")) {
+                numOfSertifDetails++;
+            } else {
+                numOfUnsertifDetails++;
+            }
+        }
+        numbers[0] = numOfSertifDetails;
+        numbers[1] = numOfUnsertifDetails;
+        return numbers;
     }
 
     @Override
@@ -118,7 +171,6 @@ public class AdminReportTableController implements Initializable {
         }
     }
 
-
     private void setCellTable(ObservableList<DetailedResolution> resolutions) {
         columnDetailType.setCellValueFactory(new PropertyValueFactory<DetailedResolution, String>("detailType"));
         columnDetailName.setCellValueFactory(new PropertyValueFactory<DetailedResolution, String>("detailName"));
@@ -132,4 +184,5 @@ public class AdminReportTableController implements Initializable {
         columnDate.setCellValueFactory(new PropertyValueFactory<DetailedResolution, Date>("date"));
         infoTable.setItems(resolutions);
     }
+
 }

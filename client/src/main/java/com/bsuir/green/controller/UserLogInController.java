@@ -9,6 +9,8 @@ import com.bsuir.green.common.response.LoginResponse;
 import com.bsuir.green.controller.Admin.AdminViewController;
 import com.bsuir.green.controller.Client.ClientViewController;
 import com.bsuir.green.controller.Stuff.StuffViewController;
+import com.bsuir.green.utils.DialogUtils;
+import com.bsuir.green.utils.Validator;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,10 +35,11 @@ public class UserLogInController {
     }
 
     public void onLoginButton() throws IOException {
+        if (!Validator.emailValidation(emailField.getText())) {
+            DialogUtils.showError("Неправильный ввод!", "Ошибка!");
+            return;
+        }
         LoginCommand loginCommand = new LoginCommand(emailField.getText(), passwordField.getText());
-        //LoginCommand loginCommand = new LoginCommand("daniilgreen@mail.ru", "12345678"); //1 админ
-        //LoginCommand loginCommand = new LoginCommand("dan@gmail.com", "12345678"); //2 stuff
-        //LoginCommand loginCommand = new LoginCommand("pasha@gmail.com", "1234"); //3 юзер
         Client.writeObject(loginCommand);
         Object response = Client.readObject();
         if (response instanceof LoginResponse) {
@@ -54,9 +57,11 @@ public class UserLogInController {
             }
 
         } else if (response instanceof ErrorResponse) {
+            DialogUtils.showError("Пользователя не существует", "Ошибка!");
             String errorMessage = ((ErrorResponse) response).getErrorMessage();
             log.error("Ошибка во время логина: {}", errorMessage);
         } else {
+            DialogUtils.showError("Ошибка на сервере!", "Ошибка!");
             log.error("Unknown response {}", response);
         }
     }

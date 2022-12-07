@@ -2,9 +2,11 @@ package com.bsuir.green.service;
 
 
 import com.bsuir.green.common.command.*;
+import com.bsuir.green.common.command.listCommands.RequestListForStuffCommand;
 import com.bsuir.green.common.command.createCommands.AddStuffCommand;
 import com.bsuir.green.common.command.createCommands.CreateDetailCommand;
 import com.bsuir.green.common.command.createCommands.CreateRequestCommand;
+import com.bsuir.green.common.command.createCommands.MakeResolutionCommand;
 import com.bsuir.green.common.command.getCommands.*;
 import com.bsuir.green.common.response.Response;
 
@@ -47,7 +49,8 @@ public class CommandManager {
             case GET_DETAIL-> response = DetailService.getInstance().getDetail((GetDetailCommand) commandDto);
             case GET_RESOLUTION-> response = ResolutionService.getInstance().getResolution((GetResolutionCommand) commandDto);
             case GET_ALL_CLIENTS_DETAILS -> response = RequestService.getInstance().getAllClientDetails((GetAllClientDetailsCommand) commandDto);
-            case GET_DETAILED_RESOLUTIONS -> response = DetailedResolutionService.getInstance().getResolution((GetDetailedResolutionCommand) commandDto);
+            case GET_DETAILED_RESOLUTIONS -> response = DetailedResolutionService.getInstance().getResolution();
+            case GET_DETAILED_RESOLUTIONS_BETWEEN_DATES -> response = DetailedResolutionService.getInstance().getResolutionBetweenDates((GetDetailedResolutionBetweenDatesCommand) commandDto);
             default -> throw new RuntimeException("Команда не поддерживаестя " + commandDto.getCommand());
         }
         return response;

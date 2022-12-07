@@ -17,9 +17,8 @@ import java.net.SocketException;
 public class Server {
 
     public void launch(int port) throws IOException {
-        //todo limit threads
         var serverSocket = new ServerSocket(port);
-        log.info("Server started");
+        log.info("Server started on port " + port);
         while (true)
             new ClientHandler(serverSocket.accept()).start();
     }

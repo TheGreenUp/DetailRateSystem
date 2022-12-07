@@ -4,7 +4,7 @@ import com.bsuir.green.Client;
 import com.bsuir.green.common.command.getCommands.GetDetailedResolutionCommand;
 import com.bsuir.green.common.model.DetailedResolution;
 import com.bsuir.green.common.response.ErrorResponse;
-import com.bsuir.green.common.response.GetDetailedResolutionResponse;
+import com.bsuir.green.common.response.getResponse.GetDetailedResolutionResponse;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,6 +68,7 @@ public class ClientDetailViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //todo Отображаются не свои заказы
         GetDetailedResolutionCommand getDetailedResolutionCommand = new GetDetailedResolutionCommand();
         Client.writeObject(getDetailedResolutionCommand);
         Object response = Client.readObject();

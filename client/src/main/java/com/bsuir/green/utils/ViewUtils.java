@@ -1,7 +1,6 @@
 package com.bsuir.green.utils;
 
 import com.bsuir.green.ClientApplication;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

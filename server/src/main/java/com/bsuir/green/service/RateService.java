@@ -1,7 +1,7 @@
 package com.bsuir.green.service;
 
 import com.bsuir.green.common.command.getCommands.GetRateQuestionsCommand;
-import com.bsuir.green.common.response.GetRateQuestionsRespose;
+import com.bsuir.green.common.response.getResponse.GetRateQuestionsRespose;
 import com.bsuir.green.common.response.Response;
 import com.bsuir.green.enums.DetailType;
 
@@ -16,7 +16,6 @@ public class RateService {
     }
 
     public Response getQuestions(GetRateQuestionsCommand getRateQuestionsCommand) {
-        //todo передалать нормально, вопросы брать из какого-нибудь другого нормального места, а не тут их писать.
         ArrayList<String> questions = new ArrayList<>();
         Optional<DetailType> dtype = DetailType.get(getRateQuestionsCommand.getDetail().getDetailType());//получаем переменную типа enum
         switch (dtype.get()) {

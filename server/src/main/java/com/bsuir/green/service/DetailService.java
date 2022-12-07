@@ -2,8 +2,8 @@ package com.bsuir.green.service;
 
 import com.bsuir.green.common.command.createCommands.CreateDetailCommand;
 import com.bsuir.green.common.command.getCommands.GetDetailCommand;
-import com.bsuir.green.common.response.CreateDetailResponse;
-import com.bsuir.green.common.response.GetDetailResponse;
+import com.bsuir.green.common.response.createResponse.CreateDetailResponse;
+import com.bsuir.green.common.response.getResponse.GetDetailResponse;
 import com.bsuir.green.common.response.Response;
 import com.bsuir.green.database.dao.DetailDao;
 

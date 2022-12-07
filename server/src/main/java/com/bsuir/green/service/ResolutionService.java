@@ -2,9 +2,9 @@ package com.bsuir.green.service;
 
 
 import com.bsuir.green.common.command.getCommands.GetResolutionCommand;
-import com.bsuir.green.common.command.MakeResolutionCommand;
-import com.bsuir.green.common.response.GetResoutionResponse;
-import com.bsuir.green.common.response.MakeResolutionResponse;
+import com.bsuir.green.common.command.createCommands.MakeResolutionCommand;
+import com.bsuir.green.common.response.getResponse.GetResoutionResponse;
+import com.bsuir.green.common.response.createResponse.MakeResolutionResponse;
 import com.bsuir.green.common.response.Response;
 import com.bsuir.green.database.dao.ResolutionDao;
 

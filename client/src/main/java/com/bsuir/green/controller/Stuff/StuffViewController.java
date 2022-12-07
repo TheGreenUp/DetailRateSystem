@@ -1,12 +1,12 @@
 package com.bsuir.green.controller.Stuff;
 
 import com.bsuir.green.Client;
-import com.bsuir.green.common.command.RequestListForStuffCommand;
+import com.bsuir.green.common.command.listCommands.RequestListForStuffCommand;
 import com.bsuir.green.common.model.Detail;
-import com.bsuir.green.common.model.RequestForStuff;
+import com.bsuir.green.common.model.RequestExtended;
 import com.bsuir.green.common.model.Stuff;
 import com.bsuir.green.common.response.ErrorResponse;
-import com.bsuir.green.common.response.RequestListForStuffResponse;
+import com.bsuir.green.common.response.listRepsonse.RequestListForStuffResponse;
 import com.bsuir.green.controller.UserLogInController;
 import com.bsuir.green.utils.ViewUtils;
 import javafx.collections.FXCollections;
@@ -29,26 +29,26 @@ public class StuffViewController implements Initializable {
 
     //region Table
     @FXML
-    private TableView<RequestForStuff> infoTable;
+    private TableView<RequestExtended> infoTable;
     @FXML
-    private TableColumn<RequestForStuff, String> columnClientFName;
+    private TableColumn<RequestExtended, String> columnClientFName;
     @FXML
-    private TableColumn<RequestForStuff, String> columnClientLName;
+    private TableColumn<RequestExtended, String> columnClientLName;
     @FXML
-    private TableColumn<RequestForStuff, String> columnDetailName;
+    private TableColumn<RequestExtended, String> columnDetailName;
 
     @FXML
-    private TableColumn<RequestForStuff, String> columnDetailType;
+    private TableColumn<RequestExtended, String> columnDetailType;
 
     @FXML
-    private TableColumn<RequestForStuff, Integer> columnRequestId;
+    private TableColumn<RequestExtended, Integer> columnRequestId;
 
     @FXML
-    private TableColumn<RequestForStuff, String> columnRequestStatus;
+    private TableColumn<RequestExtended, String> columnRequestStatus;
     @FXML
-    private TableColumn<RequestForStuff, Integer> columnClientId;
+    private TableColumn<RequestExtended, Integer> columnClientId;
     @FXML
-    private TableColumn<RequestForStuff, Integer> columnDetailId;
+    private TableColumn<RequestExtended, Integer> columnDetailId;
     //endregion
 
     //region Buttons
@@ -61,10 +61,10 @@ public class StuffViewController implements Initializable {
     //endregion
 
     //region Variables
-    ObservableList<RequestForStuff> requestList;
+    ObservableList<RequestExtended> requestList;
     static Stuff currentStuff = null;
     int chosenRequestIndex = -1;
-    static RequestForStuff chosenRequest = null;
+    static RequestExtended chosenRequest = null;
     static Detail chosenDetail = null;
     //endregion
     public void show(Stage stage, Stuff stuff) throws IOException {
@@ -89,7 +89,7 @@ public class StuffViewController implements Initializable {
         Client.writeObject(requestListForStuffCommand);
         Object response = Client.readObject();
         if (response instanceof RequestListForStuffResponse) {
-            requestList = FXCollections.observableList((List<RequestForStuff>) ((RequestListForStuffResponse) response).getRequests());
+            requestList = FXCollections.observableList((List<RequestExtended>) ((RequestListForStuffResponse) response).getRequests());
             setCellTable(requestList);
         } else if (response instanceof ErrorResponse) {
 
@@ -105,7 +105,7 @@ public class StuffViewController implements Initializable {
             return;
         }
         //region Создание реквеста
-        chosenRequest = new RequestForStuff(
+        chosenRequest = new RequestExtended(
                 columnRequestId.getCellData(chosenRequestIndex),
                 columnClientFName.getCellData(chosenRequestIndex),
                 columnClientLName.getCellData(chosenRequestIndex),
@@ -121,15 +121,15 @@ public class StuffViewController implements Initializable {
                 columnDetailId.getCellData(chosenRequestIndex));
         //endregion
     }
-    private void setCellTable(ObservableList<RequestForStuff> requestList) {
-        columnDetailName.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("detailName"));
-        columnDetailType.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("detailType"));
-        columnClientFName.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("clientFname"));
-        columnClientLName.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("clientLname"));
-        columnRequestStatus.setCellValueFactory(new PropertyValueFactory<RequestForStuff, String>("requestStatus"));
-        columnRequestId.setCellValueFactory(new PropertyValueFactory<RequestForStuff, Integer>("id"));
-        columnClientId.setCellValueFactory(new PropertyValueFactory<RequestForStuff, Integer>("client_id"));
-        columnDetailId.setCellValueFactory(new PropertyValueFactory<RequestForStuff, Integer>("detail_id"));
+    private void setCellTable(ObservableList<RequestExtended> requestList) {
+        columnDetailName.setCellValueFactory(new PropertyValueFactory<RequestExtended, String>("detailName"));
+        columnDetailType.setCellValueFactory(new PropertyValueFactory<RequestExtended, String>("detailType"));
+        columnClientFName.setCellValueFactory(new PropertyValueFactory<RequestExtended, String>("clientFname"));
+        columnClientLName.setCellValueFactory(new PropertyValueFactory<RequestExtended, String>("clientLname"));
+        columnRequestStatus.setCellValueFactory(new PropertyValueFactory<RequestExtended, String>("requestStatus"));
+        columnRequestId.setCellValueFactory(new PropertyValueFactory<RequestExtended, Integer>("id"));
+        columnClientId.setCellValueFactory(new PropertyValueFactory<RequestExtended, Integer>("client_id"));
+        columnDetailId.setCellValueFactory(new PropertyValueFactory<RequestExtended, Integer>("detail_id"));
         infoTable.setItems(requestList);
 
     }
